@@ -9,13 +9,7 @@ const SPRITE_HEIGHT = 150*2
 /* OTHER CONSTANTS */
 const GRAVITY_RATE = 0.2
 
-const canvas = document.querySelector('canvas')
-const c = canvas.getContext('2d')
-
-canvas.width = CANVAS_WIDTH
-canvas.height = CANVAS_HEIGHT
-
-c.fillRect(0, 0, canvas.width, canvas.height)
+/* ****************************** CLASSES ****************************** */
 
 // Each player is represented by a Sprite class
 class Sprite {
@@ -46,19 +40,33 @@ class Sprite {
     }
 }
 
+/* ****************************** INITIALISE ****************************** */
+
+const canvas = document.querySelector('canvas')
+const c = canvas.getContext('2d')
+
+canvas.width = CANVAS_WIDTH
+canvas.height = CANVAS_HEIGHT
+
+c.fillRect(0, 0, canvas.width, canvas.height)
+
+// Create players
 const player1 = new Sprite({position: {x: 0, y: getRandomInt(-100, 100)}, velocity: {x: 0, y: 0}})
 const player2 = new Sprite({position: {x: 1000, y: getRandomInt(-100, 100)}, velocity: {x: 0, y: 0}})
 
+// Render players
 player1.draw()
 console.log(player1)
 
 player2.draw()
 console.log(player2)
 
+// Animate (render) game
 animate()
 
-/* FUNCTIONS */
+/* ****************************** FUNCTIONS ****************************** */
 
+// Animate (render) game
 function animate() {
     window.requestAnimationFrame(animate)
     c.fillStyle = 'black'
@@ -69,6 +77,7 @@ function animate() {
 
 /* HELPER FUNCTIONS */
 
+// Used to randomise a player's spawn point
 function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
