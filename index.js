@@ -1,6 +1,11 @@
 /* CANVAS CONSTANTS */
+const canvas = document.querySelector('canvas')
+const c = canvas.getContext('2d') /* "c" is the context */
+
 const CANVAS_WIDTH = 1024*2
 const CANVAS_HEIGHT = 576*2
+canvas.width = CANVAS_WIDTH
+canvas.height = CANVAS_HEIGHT
 
 /* SPRITE CONSTANTS */
 const SPRITE_WIDTH = 50*2
@@ -41,12 +46,6 @@ class Sprite {
 }
 
 /* ****************************** INITIALISE ****************************** */
-
-const canvas = document.querySelector('canvas')
-const c = canvas.getContext('2d')
-
-canvas.width = CANVAS_WIDTH
-canvas.height = CANVAS_HEIGHT
 
 c.fillRect(0, 0, canvas.width, canvas.height)
 
