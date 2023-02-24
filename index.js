@@ -84,13 +84,24 @@ class Fighter {
     constructor({position, velocity}) {
         this.position = position
         this.velocity = velocity
+        this.width = 100
         this.height = SPRITE_HEIGHT
         this.lastKey
+        this.attackBox = {
+            position: this.position,
+            width: 200,
+            height: 100,
+        }
+        this.color = 'red'
     }
 
     draw() {
-        c.fillStyle = 'red'
-        c.fillRect(this.position.x, this.position.y, SPRITE_WIDTH, this.height)
+        c.fillStyle = this.color
+        c.fillRect(this.position.x, this.position.y, this.width, this.height)
+
+        // attack box
+        c.fillStyle = 'green'
+        c.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height)
     }
 
     update() {
@@ -154,6 +165,14 @@ function animate() {
         player2.velocity.x = -5
     } else if (keys.ArrowRight.pressed && player2.lastKey === 'ArrowRight') {
         player2.velocity.x = 5
+    }
+
+    // detect collision
+    if (player1.attackBox.position.x + player1.attackBox.width >= player2.position.x 
+        && player1.attackBox.position.x <= player2.position.x + player2.width 
+        && player1.attackBox.position.y + player1.attackBox.height >= player2.position.y
+        && player1.attackBox.position.y <= player2.position.y + player2.height) {
+        console.log('go') 
     }
 }
 
