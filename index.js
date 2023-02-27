@@ -98,6 +98,7 @@ class Fighter {
         }
         this.color = 'red'
         this.isAttacking
+        this.health = 100
     }
 
     draw() {
@@ -105,18 +106,19 @@ class Fighter {
         c.fillRect(this.position.x, this.position.y, this.width, this.height)
 
         // attack box
-        c.fillStyle = 'green'
-        c.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height)
+        if (this.isAttacking) {
+            c.fillStyle = 'green'
+            c.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height)
+        }
     }
 
     update() {
         this.draw()
         this.attackBox.position.x = this.position.x + this.attackBox.offset.x
         this.attackBox.position.y = this.position.y
-        
-        this.position.y += this.velocity.y
 
         this.position.x += this.velocity.x
+        this.position.y += this.velocity.y
 
         if (this.position.y + this.height + this.velocity.y >= canvas.height) {
             // stop player from sinking into the ground upon initial impact from spawn fall
@@ -207,12 +209,20 @@ function animate() {
     // detect collision
     if (rectangularCollision({rectangle1: player1, rectangle2: player2}) && player1.isAttacking) {
         player1.isAttacking = false
-        console.log('go') 
+        console.log('go')
+
+        // subtract health from player 1's attack
+        player2.health -= 20
+        document.querySelector('#player2Health').style.width = player2.health + '%'
     }
 
     if (rectangularCollision({rectangle1: player2, rectangle2: player1}) && player2.isAttacking) {
         player2.isAttacking = false
         console.log('enemy attack successful') 
+
+        // subtract health from player 2's attack
+        player1.health -= 20
+        document.querySelector('#player1Health').style.width = player1.health + '%'
     }
 }
 
