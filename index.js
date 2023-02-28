@@ -141,7 +141,19 @@ class Fighter {
 
 c.fillRect(0, 0, canvas.width, canvas.height)
 
-const background = new Sprite({position: {x: 0, y: 0}, imageSrc: './assets/background.png'})
+// Create background sprite
+const background = new Sprite({
+    position: {x: 0, y: 0}, 
+    imageSrc: './assets/background.png'
+})
+
+// Create shop sprite
+const shop = new Sprite({
+    position: {x: 1200, y: 256}, 
+    imageSrc: './assets/shop.png',
+    scale: 5.5,
+    framesMax: 6
+})
 
 // Create players
 const player1 = new Fighter({
@@ -216,6 +228,7 @@ function animate() {
     c.fillStyle = 'black'
     c.fillRect(0, 0, canvas.width, canvas.height)
     background.update()
+    shop.update()
     player1.update()
     player2.update()
 
