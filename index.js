@@ -81,7 +81,7 @@ class Sprite {
 // Each player is represented by a Fighther class, extend Sprite class
 class Fighter {
     
-    constructor({position, velocity, offset}) {
+    constructor({position, velocity, offset, playerColor}) {
         this.position = position
         this.velocity = velocity
         this.width = 100
@@ -96,7 +96,7 @@ class Fighter {
             width: 200,
             height: 100,
         }
-        this.color = 'red'
+        this.color = playerColor
         this.isAttacking
         this.health = 100
     }
@@ -150,7 +150,8 @@ const player1 = new Fighter({
     offset: {
         x: 0,
         y: 0
-    }
+    }, 
+    playerColor: 'grey'
 })
 const player2 = new Fighter({
     position: {x: 1000, y: getRandomInt(-100, 100)}, 
@@ -158,7 +159,8 @@ const player2 = new Fighter({
     offset: {
         x: -100,
         y: 0
-    }
+    }, 
+    playerColor: 'black'
 })
 
 // Render players
@@ -171,6 +173,7 @@ console.log(player2)
 // Animate (render) game
 animate()
 
+
 /* ****************************** FUNCTIONS ****************************** */
 
 function rectangularCollision({rectangle1, rectangle2}) {
@@ -181,6 +184,31 @@ function rectangularCollision({rectangle1, rectangle2}) {
         && rectangle1.attackBox.position.y <= rectangle2.position.y + rectangle2.height
     )
 }
+
+function determineWinner ({player1, player2, timeID}) {
+    clearTimeout(timeID)
+    if (player1.health === player2.health) {
+        document.querySelector('#displayText').innerHTML = 'Tie'
+    } else if (player1.health > player2.health) {
+        document.querySelector('#displayText').innerHTML = 'Player 1 Wins!'
+    } else {
+        document.querySelector('#displayText').innerHTML = 'Player 2 Wins!'
+    }
+    document.querySelector('#displayText').style.display = 'flex'
+}
+
+let timer = 10
+let timeID
+function decreaseTimer() {
+    timeID = setTimeout(decreaseTimer, 1000)
+    if (timer > 0) {
+        timer--
+        document.querySelector('#timer').innerHTML = timer
+    } else {
+        determineWinner({player1, player2, timeID})
+    }
+}
+decreaseTimer()
 
 // Animate (render) game
 function animate() {
@@ -206,23 +234,29 @@ function animate() {
         player2.velocity.x = 5
     }
 
-    // detect collision
+    // detect player1 collisions
     if (rectangularCollision({rectangle1: player1, rectangle2: player2}) && player1.isAttacking) {
         player1.isAttacking = false
         console.log('go')
 
         // subtract health from player 1's attack
-        player2.health -= 20
+        player2.health -= 5
         document.querySelector('#player2Health').style.width = player2.health + '%'
     }
-
+    
+    // detect player2 collisions
     if (rectangularCollision({rectangle1: player2, rectangle2: player1}) && player2.isAttacking) {
         player2.isAttacking = false
         console.log('enemy attack successful') 
 
         // subtract health from player 2's attack
-        player1.health -= 20
+        player1.health -= 5
         document.querySelector('#player1Health').style.width = player1.health + '%'
+    }
+
+    // end game based on health
+    if (player1.health  <= 0 || player2.health  <= 0) {
+        determineWinner({player1, player2, timeID})
     }
 }
 
