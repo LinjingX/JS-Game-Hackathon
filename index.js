@@ -42,7 +42,7 @@ class Sprite {
       this.framesMax = framesMax
       this.framesCurrent = 0
       this.framesElapsed = 0
-      this.framesHold = 5
+      this.framesHold = 10
       this.offset = offset
     }
   
@@ -79,10 +79,24 @@ class Sprite {
 }
 
 // Each player is represented by a Fighther class, extend Sprite class
-class Fighter {
+class Fighter extends Sprite{
     
-    constructor({position, velocity, offset, playerColor}) {
-        this.position = position
+    constructor({
+        position, 
+        velocity, 
+        imageSrc,
+        scale = 2,
+        framesMax = 1,
+        offset = { x: 0, y: 0 }
+    }) {
+        super({
+            position,
+            imageSrc,
+            scale,
+            framesMax,
+            offset
+        })
+
         this.velocity = velocity
         this.width = 100
         this.height = SPRITE_HEIGHT
@@ -96,24 +110,16 @@ class Fighter {
             width: 200,
             height: 100,
         }
-        this.color = playerColor
         this.isAttacking
         this.health = 100
-    }
-
-    draw() {
-        c.fillStyle = this.color
-        c.fillRect(this.position.x, this.position.y, this.width, this.height)
-
-        // attack box
-        if (this.isAttacking) {
-            c.fillStyle = 'green'
-            c.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height)
-        }
+        this.framesCurrent = 0
+        this.framesElapsed = 0
+        this.framesHold = 10
     }
 
     update() {
         this.draw()
+        this.animateFrames()
         this.attackBox.position.x = this.position.x + this.attackBox.offset.x
         this.attackBox.position.y = this.position.y
 
@@ -163,7 +169,13 @@ const player1 = new Fighter({
         x: 0,
         y: 0
     }, 
-    playerColor: 'grey'
+    imageSrc: './assets/samuraiMack/Idle.png',
+    scale: 4,
+    framesMax: 8,
+    offset: {
+        x: 300,
+        y: 190
+    }
 })
 
 const player2 = new Fighter({
@@ -173,7 +185,6 @@ const player2 = new Fighter({
         x: -100,
         y: 0
     }, 
-    playerColor: 'black'
 })
 
 // Render players
@@ -234,7 +245,7 @@ function animate() {
     background.update()
     shop.update()
     player1.update()
-    player2.update()
+    // player2.update()
 
     player1.velocity.x = 0
     player2.velocity.x = 0
