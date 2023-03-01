@@ -165,6 +165,7 @@ const player1 = new Fighter({
     }, 
     playerColor: 'grey'
 })
+
 const player2 = new Fighter({
     position: {x: 1000, y: getRandomInt(-100, 100)}, 
     velocity: {x: 0, y: 0},
@@ -188,6 +189,7 @@ animate()
 
 /* ****************************** FUNCTIONS ****************************** */
 
+// Return if a collision between a players attack box and players hitbox has occured
 function rectangularCollision({rectangle1, rectangle2}) {
     return (
         rectangle1.attackBox.position.x + rectangle1.attackBox.width >= rectangle2.position.x 
@@ -197,6 +199,7 @@ function rectangularCollision({rectangle1, rectangle2}) {
     )
 }
 
+// Determine winner of the game based on players health
 function determineWinner ({player1, player2, timeID}) {
     clearTimeout(timeID)
     if (player1.health === player2.health) {
@@ -209,6 +212,7 @@ function determineWinner ({player1, player2, timeID}) {
     document.querySelector('#displayText').style.display = 'flex'
 }
 
+// Regulate game timer
 let timer = 10
 let timeID
 function decreaseTimer() {
@@ -235,12 +239,14 @@ function animate() {
     player1.velocity.x = 0
     player2.velocity.x = 0
 
+    // detect player1 movement
     if (keys.a.pressed && player1.lastKey === 'a') {
         player1.velocity.x = -5
     } else if (keys.d.pressed && player1.lastKey === 'd') {
         player1.velocity.x = 5
     }
 
+    // detect player2 movement
     if (keys.ArrowLeft.pressed && player2.lastKey === 'ArrowLeft') {
         player2.velocity.x = -5
     } else if (keys.ArrowRight.pressed && player2.lastKey === 'ArrowRight') {
@@ -273,6 +279,7 @@ function animate() {
     }
 }
 
+// Event listener for when key is being pressed
 window.addEventListener('keydown', (event) => {
     switch (event.key) {
         case 'd':
@@ -311,6 +318,7 @@ window.addEventListener('keydown', (event) => {
     console.log(event.key)
 })
 
+// Event listener for when key is no longer being pressed
 window.addEventListener('keyup', (event) => {
     switch (event.key) {
         case 'd':
