@@ -87,7 +87,8 @@ class Fighter extends Sprite{
         imageSrc,
         scale = 2,
         framesMax = 1,
-        offset = { x: 0, y: 0 }
+        offset = { x: 0, y: 0 }, 
+        sprites
     }) {
         super({
             position,
@@ -115,6 +116,12 @@ class Fighter extends Sprite{
         this.framesCurrent = 0
         this.framesElapsed = 0
         this.framesHold = 10
+        this.sprites = sprites
+
+        for (const sprite in this.sprites) {
+            sprites[sprite].image = new Image()
+            sprites[sprite].image.src = sprites[sprite].imageSrc
+        }
     }
 
     update() {
@@ -140,6 +147,59 @@ class Fighter extends Sprite{
         setTimeout(() => {
             this.isAttacking = false
         }, 100)
+    }
+
+    switchSprite(sprite) {
+        switch (sprite) {
+            case 'idle':
+                if (this.image !== this.sprites.idle.image) {
+                    this.image = this.sprites.idle.image
+                    this.framesMax = this.sprites.idle.framesMax
+                }
+                break
+            case 'idle2':
+                if (this.image !== this.sprites.idle2.image) {
+                    this.image = this.sprites.idle2.image
+                    this.framesMax = this.sprites.idle2.framesMax
+                }
+                break
+            case 'run':
+                if (this.image !== this.sprites.run.image) {
+                    this.image = this.sprites.run.image
+                    this.framesMax = this.sprites.run.framesMax
+                }
+                break
+            case 'run2':
+                if (this.image !== this.sprites.run2.image) {
+                    this.image = this.sprites.run2.image
+                    this.framesMax = this.sprites.run2.framesMax
+                }
+                break
+            case 'jump':
+                if (this.image !== this.sprites.jump.image) {
+                    this.image = this.sprites.jump.image
+                    this.framesMax = this.sprites.jump.framesMax
+                }
+                break
+            case 'jump2':
+                if (this.image !== this.sprites.jump2.image) {
+                    this.image = this.sprites.jump2.image
+                    this.framesMax = this.sprites.jump2.framesMax
+                }
+                break
+            case 'fall':
+                if (this.image !== this.sprites.fall.image) {
+                    this.image = this.sprites.fall.image
+                    this.framesMax = this.sprites.fall.framesMax
+                }
+                break
+            case 'fall2':
+                if (this.image !== this.sprites.fall2.image) {
+                    this.image = this.sprites.fall2.image
+                    this.framesMax = this.sprites.fall2.framesMax
+                }
+                break
+        }
     }
 }
 
@@ -174,7 +234,47 @@ const player1 = new Fighter({
     framesMax: 8,
     offset: {
         x: 300,
-        y: 190
+        y: 375
+    }, 
+    sprites: {
+        idle: {
+            imageSrc: './assets/samuraiMack/Idle.png', 
+            framesMax: 8
+        }, 
+        idle2: {
+            imageSrc: './assets/samuraiMack/Idle2.png', 
+            framesMax: 8
+        }, 
+        run : {
+            imageSrc: './assets/samuraiMack/Run.png', 
+            framesMax: 8, 
+            image: new Image()
+        },
+        run2 : {
+            imageSrc: './assets/samuraiMack/Run2.png', 
+            framesMax: 8,
+            image: new Image()
+        },
+        jump : {
+            imageSrc: './assets/samuraiMack/Jump.png', 
+            framesMax: 2, 
+            image: new Image()
+        }, 
+        jump2 : {
+            imageSrc: './assets/samuraiMack/Jump2.png', 
+            framesMax: 2, 
+            image: new Image()
+        }, 
+        fall : {
+            imageSrc: './assets/samuraiMack/Fall.png', 
+            framesMax: 2, 
+            image: new Image()
+        }, 
+        fall2 : {
+            imageSrc: './assets/samuraiMack/Fall2.png', 
+            framesMax: 2, 
+            image: new Image()
+        }
     }
 })
 
@@ -249,12 +349,35 @@ function animate() {
 
     player1.velocity.x = 0
     player2.velocity.x = 0
-
+    
     // detect player1 movement
+    // manage player1 sprite
+    player1.switchSprite('idle')
+
+    if (player1.lastKey === 'a') {
+        player1.switchSprite('idle2')
+    }
+
     if (keys.a.pressed && player1.lastKey === 'a') {
         player1.velocity.x = -5
-    } else if (keys.d.pressed && player1.lastKey === 'd') {
+        player1.switchSprite('run2')
+    }
+    
+    if (keys.d.pressed && player1.lastKey === 'd') {
         player1.velocity.x = 5
+        player1.switchSprite('run')
+    }
+
+    if (player1.velocity.y < 0) {
+        player1.switchSprite('jump')
+    } else if (player1.velocity.y > 0) {
+        player1.switchSprite('fall')
+    }
+
+    if (player1.velocity.y < 0 && player1.lastKey === 'a') {
+        player1.switchSprite('jump2')
+    } else if (player1.velocity.y > 0 && player1.lastKey === 'a') {
+        player1.switchSprite('fall2')
     }
 
     // detect player2 movement
