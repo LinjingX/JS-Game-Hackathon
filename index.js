@@ -124,6 +124,25 @@ class Fighter extends Sprite{
         }
     }
 
+    draw() {
+        let crop_start_x = 0
+        if (this.lastKey === 'a'){
+            crop_start_x = this.image.width - (this.framesCurrent + 1) * (this.image.width / this.framesMax)
+        } else {crop_start_x = this.framesCurrent * (this.image.width / this.framesMax)}
+
+        c.drawImage(
+          this.image,
+          crop_start_x,
+          0,
+          this.image.width / this.framesMax,
+          this.image.height,
+          this.position.x - this.offset.x,
+          this.position.y - this.offset.y,
+          (this.image.width / this.framesMax) * this.scale,
+          this.image.height * this.scale
+        )
+      }
+
     update() {
         this.draw()
         this.animateFrames()
