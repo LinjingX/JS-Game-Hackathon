@@ -133,7 +133,7 @@ class Fighter extends Sprite{
         this.position.x += this.velocity.x
         this.position.y += this.velocity.y
 
-        if (this.position.y + this.height + this.velocity.y >= canvas.height) {
+        if (this.position.y + this.height + this.velocity.y >= canvas.height - 195) {
             // stop player from sinking into the ground upon initial impact from spawn fall
             this.velocity.y = 0
         } else {
@@ -234,7 +234,7 @@ const player1 = new Fighter({
     framesMax: 8,
     offset: {
         x: 300,
-        y: 375
+        y: 190
     }, 
     sprites: {
         idle: {
