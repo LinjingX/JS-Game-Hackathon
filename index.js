@@ -136,6 +136,7 @@ class Fighter extends Sprite{
         if (this.position.y + this.height + this.velocity.y >= canvas.height - 195) {
             // stop player from sinking into the ground upon initial impact from spawn fall
             this.velocity.y = 0
+            this.position.y = 657
         } else {
             // otherwise apply gravity
             this.velocity.y += GRAVITY_RATE
@@ -155,48 +156,56 @@ class Fighter extends Sprite{
                 if (this.image !== this.sprites.idle.image) {
                     this.image = this.sprites.idle.image
                     this.framesMax = this.sprites.idle.framesMax
+                    this.framesCurrent = 0
                 }
                 break
             case 'idle2':
                 if (this.image !== this.sprites.idle2.image) {
                     this.image = this.sprites.idle2.image
                     this.framesMax = this.sprites.idle2.framesMax
+                    this.framesCurrent = 0
                 }
                 break
             case 'run':
                 if (this.image !== this.sprites.run.image) {
                     this.image = this.sprites.run.image
                     this.framesMax = this.sprites.run.framesMax
+                    this.framesCurrent = 0
                 }
                 break
             case 'run2':
                 if (this.image !== this.sprites.run2.image) {
                     this.image = this.sprites.run2.image
                     this.framesMax = this.sprites.run2.framesMax
+                    this.framesCurrent = 0
                 }
                 break
             case 'jump':
                 if (this.image !== this.sprites.jump.image) {
                     this.image = this.sprites.jump.image
                     this.framesMax = this.sprites.jump.framesMax
+                    this.framesCurrent = 0
                 }
                 break
             case 'jump2':
                 if (this.image !== this.sprites.jump2.image) {
                     this.image = this.sprites.jump2.image
                     this.framesMax = this.sprites.jump2.framesMax
+                    this.framesCurrent = 0
                 }
                 break
             case 'fall':
                 if (this.image !== this.sprites.fall.image) {
                     this.image = this.sprites.fall.image
                     this.framesMax = this.sprites.fall.framesMax
+                    this.framesCurrent = 0
                 }
                 break
             case 'fall2':
                 if (this.image !== this.sprites.fall2.image) {
                     this.image = this.sprites.fall2.image
                     this.framesMax = this.sprites.fall2.framesMax
+                    this.framesCurrent = 0
                 }
                 break
         }
@@ -352,20 +361,17 @@ function animate() {
     
     // detect player1 movement
     // manage player1 sprite
-    player1.switchSprite('idle')
-
-    if (player1.lastKey === 'a') {
-        player1.switchSprite('idle2')
-    }
 
     if (keys.a.pressed && player1.lastKey === 'a') {
         player1.velocity.x = -5
         player1.switchSprite('run2')
-    }
-    
-    if (keys.d.pressed && player1.lastKey === 'd') {
+    } else if (keys.d.pressed && player1.lastKey === 'd') {
         player1.velocity.x = 5
         player1.switchSprite('run')
+    } else if (player1.lastKey === 'a'){
+        player1.switchSprite('idle2')
+    } else {
+        player1.switchSprite('idle')
     }
 
     if (player1.velocity.y < 0) {
