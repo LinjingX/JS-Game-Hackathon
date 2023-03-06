@@ -88,7 +88,8 @@ class Fighter extends Sprite{
         scale = 2,
         framesMax = 1,
         offset = { x: 0, y: 0 }, 
-        sprites
+        sprites,
+        attackBox = {offset: {}, width: undefined, height: undefined}
     }) {
         super({
             position,
@@ -107,9 +108,9 @@ class Fighter extends Sprite{
                 x: this.position.x,
                 y: this.position.y
             },
-            offset,
-            width: 200,
-            height: 100,
+            offset: attackBox.offset,
+            width: attackBox.width,
+            height: attackBox.height,
         }
         this.isAttacking
         this.health = 100
@@ -146,16 +147,19 @@ class Fighter extends Sprite{
     update() {
         this.draw()
         this.animateFrames()
+        
         this.attackBox.position.x = this.position.x + this.attackBox.offset.x
         this.attackBox.position.y = this.position.y
+
+        c.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height)
 
         this.position.x += this.velocity.x
         this.position.y += this.velocity.y
 
-        if (this.position.y + this.height + this.velocity.y >= canvas.height - 195) {
+        if (this.position.y + this.height + this.velocity.y >= canvas.height - 100) {
             // stop player from sinking into the ground upon initial impact from spawn fall
             this.velocity.y = 0
-            this.position.y = 657
+            this.position.y = 752
         } else {
             // otherwise apply gravity
             this.velocity.y += GRAVITY_RATE
@@ -290,7 +294,7 @@ const player1 = new Fighter({
     framesMax: 8,
     offset: {
         x: 300,
-        y: 190
+        y: 280
     }, 
     sprites: {
         idle: {
@@ -341,6 +345,14 @@ const player1 = new Fighter({
             framesMax: 6, 
             image: new Image()
         }
+    },
+    attackBox: {
+        offset: {
+            x: 0,
+            y: 0
+        },
+        width: 100,
+        height: 50
     }
 })
 
@@ -356,8 +368,8 @@ const player2 = new Fighter({
     scale: 4,
     framesMax: 4,
     offset: {
-        x: 300,
-        y: 210
+        x: 350,
+        y: 300
     }, 
     sprites: {
         idle: {
@@ -408,6 +420,14 @@ const player2 = new Fighter({
             framesMax: 4, 
             image: new Image()
         }
+    },
+    attackBox: {
+        offset: {
+            x: 0,
+            y: 0
+        },
+        width: 100,
+        height: 50
     }
 })
 
