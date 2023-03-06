@@ -163,9 +163,10 @@ class Fighter extends Sprite{
     }
 
     attack() {
-        if (this.lastKey === 'a') {
+        if (this.lastKey === 'a' || this.lastKey === 'ArrowRight') {
             this.switchSprite('attack1_flipped')
         } else {this.switchSprite('attack1')}
+
         this.isAttacking = true
         setTimeout(() => {
             this.isAttacking = false
@@ -276,7 +277,7 @@ const shop = new Sprite({
     framesMax: 6
 })
 
-// Create players
+// Create player 1
 const player1 = new Fighter({
     position: {x: 0, y: getRandomInt(-100, 100)}, 
     velocity: {x: 0, y: 0},
@@ -343,6 +344,7 @@ const player1 = new Fighter({
     }
 })
 
+// Create player 2
 const player2 = new Fighter({
     position: {x: 1000, y: getRandomInt(-100, 100)}, 
     velocity: {x: 0, y: 0},
@@ -350,6 +352,63 @@ const player2 = new Fighter({
         x: -100,
         y: 0
     }, 
+    imageSrc: './assets/kenji/Idle.png',
+    scale: 4,
+    framesMax: 4,
+    offset: {
+        x: 300,
+        y: 210
+    }, 
+    sprites: {
+        idle: {
+            imageSrc: './assets/kenji/Idle.png', 
+            framesMax: 4
+        }, 
+        idle2: {
+            imageSrc: './assets/kenji/Idle_flip.png', 
+            framesMax: 4
+        }, 
+        run : {
+            imageSrc: './assets/kenji/Run.png', 
+            framesMax: 8, 
+            image: new Image()
+        },
+        run2 : {
+            imageSrc: './assets/kenji/Run_flip.png', 
+            framesMax: 8,
+            image: new Image()
+        },
+        jump : {
+            imageSrc: './assets/kenji/Jump.png', 
+            framesMax: 2, 
+            image: new Image()
+        }, 
+        jump2 : {
+            imageSrc: './assets/kenji/Jump_flip.png', 
+            framesMax: 2, 
+            image: new Image()
+        }, 
+        fall : {
+            imageSrc: './assets/kenji/Fall.png', 
+            framesMax: 2, 
+            image: new Image()
+        }, 
+        fall2 : {
+            imageSrc: './assets/kenji/Fall_flip.png', 
+            framesMax: 2, 
+            image: new Image()
+        }, 
+        attack1 : {
+            imageSrc: './assets/kenji/Attack1.png', 
+            framesMax: 4, 
+            image: new Image()
+        },
+        attack1_flipped : {
+            imageSrc: './assets/kenji/Attack1_flip.png', 
+            framesMax: 4, 
+            image: new Image()
+        }
+    }
 })
 
 // Render players
@@ -410,14 +469,14 @@ function animate() {
     background.update()
     shop.update()
     player1.update()
-    // player2.update()
+    player2.update()
 
     player1.velocity.x = 0
     player2.velocity.x = 0
     
-    // detect player1 movement
-    // manage player1 sprite
+    /* --- PLAYER 1 SPRITES --- */
 
+    // movement sprites - player1
     if (keys.a.pressed && player1.lastKey === 'a') {
         player1.velocity.x = -5
         player1.switchSprite('run2')
@@ -430,24 +489,50 @@ function animate() {
         player1.switchSprite('idle')
     }
 
+    // jump and fall sprite right - player1
     if (player1.velocity.y < 0) {
         player1.switchSprite('jump')
     } else if (player1.velocity.y > 0) {
         player1.switchSprite('fall')
     }
 
+    // jump and fall sprite left - player1
     if (player1.velocity.y < 0 && player1.lastKey === 'a') {
         player1.switchSprite('jump2')
     } else if (player1.velocity.y > 0 && player1.lastKey === 'a') {
         player1.switchSprite('fall2')
     }
 
-    // detect player2 movement
+    /* --- PLAYER 2 SPRITES --- */
+
+    // movement sprites - player2
     if (keys.ArrowLeft.pressed && player2.lastKey === 'ArrowLeft') {
         player2.velocity.x = -5
+        player2.switchSprite('run')
     } else if (keys.ArrowRight.pressed && player2.lastKey === 'ArrowRight') {
         player2.velocity.x = 5
+        player2.switchSprite('run2')
+    } else if (player2.lastKey === 'ArrowRight'){
+        player2.switchSprite('idle2')
+    } else {
+        player2.switchSprite('idle')
     }
+
+    // jump and fall sprite left - player2
+    if (player2.velocity.y < 0) {
+        player2.switchSprite('jump')
+    } else if (player2.velocity.y > 0) {
+        player2.switchSprite('fall')
+    }
+
+    // jump and fall sprite right - player2
+    if (player2.velocity.y < 0 && player2.lastKey === 'ArrowRight') {
+        player2.switchSprite('jump2')
+    } else if (player2.velocity.y > 0 && player2.lastKey === 'ArrowRight') {
+        player2.switchSprite('fall2')
+    }
+
+    /* --- COLLISIONS --- */
 
     // detect player1 collisions
     if (rectangularCollision({rectangle1: player1, rectangle2: player2}) && player1.isAttacking) {
