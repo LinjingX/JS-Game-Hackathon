@@ -42,7 +42,7 @@ class Sprite {
       this.framesMax = framesMax
       this.framesCurrent = 0
       this.framesElapsed = 0
-      this.framesHold = 15
+      this.framesHold = 5
       this.offset = offset
     }
   
@@ -116,7 +116,7 @@ class Fighter extends Sprite{
         this.health = 100
         this.framesCurrent = 0
         this.framesElapsed = 0
-        this.framesHold = 15
+        this.framesHold = 5
         this.sprites = sprites
 
         for (const sprite in this.sprites) {
@@ -175,7 +175,14 @@ class Fighter extends Sprite{
         this.isAttacking = true
     }
 
+    takeHit() {
+        if(this.lastKey === 'a' || this.lastKey === 'ArrowRight'){
+            this.switchSprite('takeHit2')
+        } else {this.switchSprite('takeHit')}
+    }
+
     switchSprite(sprite) {
+        // overriding all other animations with the attack animation
         if (this.image === this.sprites.attack1.image && 
             this.framesCurrent < this.sprites.attack1.framesMax - 1){
             return
@@ -183,6 +190,17 @@ class Fighter extends Sprite{
 
         if (this.image === this.sprites.attack1_flipped.image && 
             this.framesCurrent < this.sprites.attack1_flipped.framesMax - 1){
+            return
+        }
+
+        // override when fighter gets hit
+        if (this.image === this.sprites.takeHit.image && 
+            this.framesCurrent < this.sprites.takeHit.framesMax - 1){
+            return
+        }
+
+        if (this.image === this.sprites.takeHit2.image && 
+            this.framesCurrent < this.sprites.takeHit2.framesMax - 1){
             return
         }
 
@@ -257,6 +275,20 @@ class Fighter extends Sprite{
                     this.framesCurrent = 0
                 }
                 break
+            case 'takeHit':
+                if (this.image !== this.sprites.takeHit.image) {
+                    this.image = this.sprites.takeHit.image
+                    this.framesMax = this.sprites.takeHit.framesMax
+                    this.framesCurrent = 0
+                }
+                break
+            case 'takeHit2':
+            if (this.image !== this.sprites.takeHit2.image) {
+                this.image = this.sprites.takeHit2.image
+                this.framesMax = this.sprites.takeHit2.framesMax
+                this.framesCurrent = 0
+            }
+            break
         }
     }
 }
@@ -342,6 +374,14 @@ const player1 = new Fighter({
             imageSrc: './assets/samuraiMack/attack1_flipped.png', 
             framesMax: 6, 
             image: new Image()
+        },
+        takeHit: {
+            imageSrc: './assets/samuraiMack/Take Hit.png',
+            framesMax: 4 
+        },
+        takeHit2: {
+            imageSrc: './assets/samuraiMack/Take Hit2.png',
+            framesMax: 4 
         }
     },
     attackBox: {
@@ -417,6 +457,14 @@ const player2 = new Fighter({
             imageSrc: './assets/kenji/Attack1_flip.png', 
             framesMax: 4, 
             image: new Image()
+        },
+        takeHit: {
+            imageSrc: './assets/kenji/Take Hit.png',
+            framesMax: 3 
+        },
+        takeHit2: {
+            imageSrc: './assets/kenji/Take Hit_flip.png',
+            framesMax: 3 
         }
     },
     attackBox: {
@@ -552,8 +600,9 @@ function animate() {
 
     /* --- COLLISIONS --- */
 
-    // detect player1 collisions
+    // detect player1 collisions & player2 gets hit
     if (rectangularCollision({rectangle1: player1, rectangle2: player2}) && player1.isAttacking && player1.framesCurrent === 4) {
+        player2.takeHit()
         player1.isAttacking = false
         console.log('go')
 
@@ -566,8 +615,9 @@ function animate() {
         player1.isAttacking = false
     }
     
-    // detect player2 collisions
+    // detect player2 collisions & player1 gets hit
     if (rectangularCollision({rectangle1: player2, rectangle2: player1}) && player2.isAttacking && player2.framesCurrent === 1) {
+        player1.takeHit()
         player2.isAttacking = false
         console.log('enemy attack successful') 
 
