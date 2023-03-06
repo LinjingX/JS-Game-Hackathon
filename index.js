@@ -42,7 +42,7 @@ class Sprite {
       this.framesMax = framesMax
       this.framesCurrent = 0
       this.framesElapsed = 0
-      this.framesHold = 5
+      this.framesHold = 15
       this.offset = offset
     }
   
@@ -116,7 +116,7 @@ class Fighter extends Sprite{
         this.health = 100
         this.framesCurrent = 0
         this.framesElapsed = 0
-        this.framesHold = 5
+        this.framesHold = 15
         this.sprites = sprites
 
         for (const sprite in this.sprites) {
@@ -146,11 +146,12 @@ class Fighter extends Sprite{
 
     update() {
         this.draw()
-        this.animateFrames()
+        this.animateFrames() 
         
         this.attackBox.position.x = this.position.x + this.attackBox.offset.x
-        this.attackBox.position.y = this.position.y
+        this.attackBox.position.y = this.position.y + this.attackBox.offset.y
 
+        // draw attack box
         c.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height)
 
         this.position.x += this.velocity.x
@@ -172,9 +173,6 @@ class Fighter extends Sprite{
         } else {this.switchSprite('attack1')}
 
         this.isAttacking = true
-        setTimeout(() => {
-            this.isAttacking = false
-        }, 100)
     }
 
     switchSprite(sprite) {
@@ -293,7 +291,7 @@ const player1 = new Fighter({
     scale: 4,
     framesMax: 8,
     offset: {
-        x: 300,
+        x: 345,
         y: 280
     }, 
     sprites: {
@@ -348,11 +346,11 @@ const player1 = new Fighter({
     },
     attackBox: {
         offset: {
-            x: 0,
-            y: 0
+            x: 180,
+            y: 30
         },
-        width: 100,
-        height: 50
+        width: 230,
+        height: 100
     }
 })
 
@@ -423,11 +421,11 @@ const player2 = new Fighter({
     },
     attackBox: {
         offset: {
-            x: 0,
-            y: 0
+            x: -280,
+            y: 30
         },
-        width: 100,
-        height: 50
+        width: 230,
+        height: 100
     }
 })
 
@@ -555,7 +553,7 @@ function animate() {
     /* --- COLLISIONS --- */
 
     // detect player1 collisions
-    if (rectangularCollision({rectangle1: player1, rectangle2: player2}) && player1.isAttacking) {
+    if (rectangularCollision({rectangle1: player1, rectangle2: player2}) && player1.isAttacking && player1.framesCurrent === 4) {
         player1.isAttacking = false
         console.log('go')
 
@@ -563,15 +561,24 @@ function animate() {
         player2.health -= 5
         document.querySelector('#player2Health').style.width = player2.health + '%'
     }
+    // if player1 misses
+    if (player1.isAttacking && player1.framesCurrent === 4){
+        player1.isAttacking = false
+    }
     
     // detect player2 collisions
-    if (rectangularCollision({rectangle1: player2, rectangle2: player1}) && player2.isAttacking) {
+    if (rectangularCollision({rectangle1: player2, rectangle2: player1}) && player2.isAttacking && player2.framesCurrent === 1) {
         player2.isAttacking = false
         console.log('enemy attack successful') 
 
         // subtract health from player 2's attack
         player1.health -= 5
         document.querySelector('#player1Health').style.width = player1.health + '%'
+    }
+
+    // if player2 misses
+    if (player2.isAttacking && player2.framesCurrent === 1){
+        player2.isAttacking = false
     }
 
     // end game based on health
