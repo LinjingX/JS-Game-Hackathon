@@ -118,6 +118,7 @@ class Fighter extends Sprite{
         this.framesElapsed = 0
         this.framesHold = 5
         this.sprites = sprites
+        this.dead = false
 
         for (const sprite in this.sprites) {
             sprites[sprite].image = new Image()
@@ -146,13 +147,13 @@ class Fighter extends Sprite{
 
     update() {
         this.draw()
-        this.animateFrames() 
+        if (!this.dead) {this.animateFrames()}
         
         this.attackBox.position.x = this.position.x + this.attackBox.offset.x
         this.attackBox.position.y = this.position.y + this.attackBox.offset.y
 
         // draw attack box
-        c.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height)
+        //c.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height)
 
         this.position.x += this.velocity.x
         this.position.y += this.velocity.y
@@ -176,12 +177,23 @@ class Fighter extends Sprite{
     }
 
     takeHit() {
-        if(this.lastKey === 'a' || this.lastKey === 'ArrowRight'){
-            this.switchSprite('takeHit2')
-        } else {this.switchSprite('takeHit')}
+        this.health -= 5
+        if (this.health <= 0) {
+            this.switchSprite('death')
+        } else {
+            if(this.lastKey === 'a' || this.lastKey === 'ArrowRight'){
+                this.switchSprite('takeHit2')
+            } else {this.switchSprite('takeHit')}
+        }
     }
 
     switchSprite(sprite) {
+        // stop animating on death
+        if (this.image === this.sprites.death.image) {
+            if (this.framesCurrent === this.sprites.death.framesMax - 1) {this.dead = true}
+            return
+        }
+
         // overriding all other animations with the attack animation
         if (this.image === this.sprites.attack1.image && 
             this.framesCurrent < this.sprites.attack1.framesMax - 1){
@@ -288,7 +300,14 @@ class Fighter extends Sprite{
                 this.framesMax = this.sprites.takeHit2.framesMax
                 this.framesCurrent = 0
             }
-            break
+                break
+            case 'death':
+                if (this.image !== this.sprites.death.image) {
+                    this.image = this.sprites.death.image
+                    this.framesMax = this.sprites.death.framesMax
+                    this.framesCurrent = 0
+                }
+                break
         }
     }
 }
@@ -382,14 +401,18 @@ const player1 = new Fighter({
         takeHit2: {
             imageSrc: './assets/samuraiMack/Take Hit2.png',
             framesMax: 4 
+        }, 
+        death: {
+            imageSrc: './assets/samuraiMack/Death.png',
+            framesMax: 6
         }
     },
     attackBox: {
         offset: {
-            x: 180,
+            x: 90,
             y: 30
         },
-        width: 230,
+        width: 300,
         height: 100
     }
 })
@@ -465,6 +488,10 @@ const player2 = new Fighter({
         takeHit2: {
             imageSrc: './assets/kenji/Take Hit_flip.png',
             framesMax: 3 
+        }, 
+        death: {
+            imageSrc: './assets/kenji/Death.png',
+            framesMax: 7
         }
     },
     attackBox: {
@@ -472,7 +499,7 @@ const player2 = new Fighter({
             x: -280,
             y: 30
         },
-        width: 230,
+        width: 300,
         height: 100
     }
 })
@@ -514,7 +541,7 @@ function determineWinner ({player1, player2, timeID}) {
 }
 
 // Regulate game timer
-let timer = 10
+let timer = 61
 let timeID
 function decreaseTimer() {
     timeID = setTimeout(decreaseTimer, 1000)
@@ -607,7 +634,6 @@ function animate() {
         console.log('go')
 
         // subtract health from player 1's attack
-        player2.health -= 5
         document.querySelector('#player2Health').style.width = player2.health + '%'
     }
     // if player1 misses
@@ -622,7 +648,6 @@ function animate() {
         console.log('enemy attack successful') 
 
         // subtract health from player 2's attack
-        player1.health -= 5
         document.querySelector('#player1Health').style.width = player1.health + '%'
     }
 
@@ -639,40 +664,42 @@ function animate() {
 
 // Event listener for when key is being pressed
 window.addEventListener('keydown', (event) => {
-    switch (event.key) {
-        case 'd':
-            keys.d.pressed = true
-            player1.lastKey = 'd'
-            break
-        case 'a':
-            keys.a.pressed = true
-            player1.lastKey = 'a'
-            break
-        case 'w':
-            player1.velocity.y = -10
-            break
-        case ' ':
-            player1.attack()
-            break
+    if (!player1.dead) {
+        switch (event.key) {
+            case 'd':
+                keys.d.pressed = true
+                player1.lastKey = 'd'
+                break
+            case 'a':
+                keys.a.pressed = true
+                player1.lastKey = 'a'
+                break
+            case 'w':
+                player1.velocity.y = -10
+                break
+            case ' ':
+                player1.attack()
+                break
+        }
     }
-
-    switch (event.key) {
-        case 'ArrowRight':
-            keys.ArrowRight.pressed = true
-            player2.lastKey = 'ArrowRight'
-            break
-        case 'ArrowLeft':
-            keys.ArrowLeft.pressed = true
-            player2.lastKey = 'ArrowLeft'
-            break
-        case 'ArrowUp':
-            player2.velocity.y = -10
-            break
-        case 'ArrowDown':
-            player2.attack()
-            break
+    if (!player2.dead) {
+        switch (event.key) {
+            case 'ArrowRight':
+                keys.ArrowRight.pressed = true
+                player2.lastKey = 'ArrowRight'
+                break
+            case 'ArrowLeft':
+                keys.ArrowLeft.pressed = true
+                player2.lastKey = 'ArrowLeft'
+                break
+            case 'ArrowUp':
+                player2.velocity.y = -10
+                break
+            case 'ArrowDown':
+                player2.attack()
+                break
+        }
     }
-
     console.log(event.key)
 })
 
