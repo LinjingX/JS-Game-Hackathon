@@ -533,9 +533,9 @@ function determineWinner ({player1, player2, timeID}) {
     if (player1.health === player2.health) {
         document.querySelector('#displayText').innerHTML = 'Tie'
     } else if (player1.health > player2.health) {
-        document.querySelector('#displayText').innerHTML = 'Player 1 Wins!'
+        document.querySelector('#displayText').innerHTML = 'Samurai Mack Wins!'
     } else {
-        document.querySelector('#displayText').innerHTML = 'Player 2 Wins!'
+        document.querySelector('#displayText').innerHTML = 'Kenji Wins!'
     }
     document.querySelector('#displayText').style.display = 'flex'
 }
@@ -633,8 +633,10 @@ function animate() {
         player1.isAttacking = false
         console.log('go')
 
-        // subtract health from player 1's attack
-        document.querySelector('#player2Health').style.width = player2.health + '%'
+        // subtract health from player 2's health
+        gsap.to('#player2Health', {
+            width: player2.health + '%'
+        })
     }
     // if player1 misses
     if (player1.isAttacking && player1.framesCurrent === 4){
@@ -647,8 +649,10 @@ function animate() {
         player2.isAttacking = false
         console.log('enemy attack successful') 
 
-        // subtract health from player 2's attack
-        document.querySelector('#player1Health').style.width = player1.health + '%'
+        // subtract health from player 1's health
+        gsap.to('#player1Health', {
+            width: player1.health + '%'
+        })
     }
 
     // if player2 misses
