@@ -247,10 +247,14 @@ function animate() {
 
     // movement sprites - player1
     if (keys.a.pressed && player1.lastKey === 'a') {
-        player1.velocity.x = -5
+        if (player1.position.x > 0) {
+            player1.velocity.x = -5
+        }
         player1.switchSprite('run2')
     } else if (keys.d.pressed && player1.lastKey === 'd') {
-        player1.velocity.x = 5
+        if (player1.position.x < (CANVAS_WIDTH - player1.width)) {
+            player1.velocity.x = 5
+        }
         player1.switchSprite('run')
     } else if (player1.lastKey === 'a'){
         player1.switchSprite('idle2')
@@ -276,10 +280,14 @@ function animate() {
 
     // movement sprites - player2
     if (keys.ArrowLeft.pressed && player2.lastKey === 'ArrowLeft') {
-        player2.velocity.x = -5
+        if (player2.position.x > 0) {
+            player2.velocity.x = -5
+        }
         player2.switchSprite('run')
     } else if (keys.ArrowRight.pressed && player2.lastKey === 'ArrowRight') {
-        player2.velocity.x = 5
+        if (player2.position.x < (CANVAS_WIDTH - player2.width)) {
+            player2.velocity.x = 5
+        }
         player2.switchSprite('run2')
     } else if (player2.lastKey === 'ArrowRight'){
         player2.switchSprite('idle2')
@@ -355,7 +363,9 @@ window.addEventListener('keydown', (event) => {
                 player1.lastKey = 'a'
                 break
             case 'w':
-                player1.velocity.y = -10
+                if(player1.position.y > (player1.height/2)){
+                    player1.velocity.y = -10
+                }
                 break
             case ' ':
                 player1.attack()
@@ -373,7 +383,10 @@ window.addEventListener('keydown', (event) => {
                 player2.lastKey = 'ArrowLeft'
                 break
             case 'ArrowUp':
-                player2.velocity.y = -10
+                if(player2.position.y > (player2.height/2)){
+                    console.log('ok')
+                    player2.velocity.y = -10
+                }
                 break
             case 'ArrowDown':
                 player2.attack()
