@@ -43,6 +43,18 @@ const shop = new Sprite({
     framesMax: 6
 })
 
+const midairplatform1 = new MidairPlatform({
+    position: {x: 1200, y: 300},
+    width: 800,
+    height: 50
+})
+
+const midairplatform2 = new MidairPlatform({
+    position: {x: 50, y: 600},
+    width: 500,
+    height: 50
+})
+
 // Create player 1
 const player1 = new Fighter({
     position: {x: 550, y: getRandomInt(-100, 100)}, 
@@ -127,6 +139,10 @@ const player1 = new Fighter({
         },
         width: 300,
         height: 100
+    },
+    hitbox: {
+        width: 10,
+        height: 10
     }
 })
 
@@ -214,6 +230,10 @@ const player2 = new Fighter({
         },
         width: 300,
         height: 100
+    },
+    hitbox: {
+        width: 10,
+        height: 10
     }
 })
 
@@ -237,8 +257,10 @@ function animate() {
     c.fillRect(0, 0, canvas.width, canvas.height)
     background.update()
     shop.update()
-    player1.update()
-    player2.update()
+    midairplatform1.update()
+    midairplatform2.update()
+    player1.update(midairplatform1)
+    player2.update(midairplatform1)
 
     player1.velocity.x = 0
     player2.velocity.x = 0
@@ -343,6 +365,9 @@ function animate() {
     if (player2.isAttacking && player2.framesCurrent === 1){
         player2.isAttacking = false
     }
+
+    // detect player1 and mid-air platform collisions
+    
 
     // end game based on health
     if (player1.health  <= 0 || player2.health  <= 0) {

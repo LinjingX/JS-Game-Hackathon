@@ -65,7 +65,8 @@ class Fighter extends Sprite{
         framesMax = 1,
         offset = { x: 0, y: 0 }, 
         sprites,
-        attackBox = {offset: {}, width: undefined, height: undefined}
+        attackBox = {offset: {}, width: undefined, height: undefined},
+        hitbox = {width: undefined, height: undefined}
     }) {
         super({
             position,
@@ -79,6 +80,14 @@ class Fighter extends Sprite{
         this.width = 100
         this.height = SPRITE_HEIGHT
         this.lastKey
+        this.hitbox = {
+            position: {
+              x: this.position.x,
+              y: this.position.y,
+            },
+            width: hitbox.width,
+            height: hitbox.height
+        }
         this.attackBox = {
             position: {
                 x: this.position.x,
@@ -121,7 +130,12 @@ class Fighter extends Sprite{
         )
       }
 
-    update() {
+    update(midairplatform1) {
+        c.fillStyle = 'rgba(0, 255, 0, 0.2)'
+        c.fillRect(this.position.x, this.position.y, this.width, this.height -90)
+
+        c.fillStyle = 'rgba(255, 0, 0, 0.2)'
+        c.fillRect(this.hitbox.position.x, this.hitbox.position.y, this.width, this.height)
         this.draw()
         if (!this.dead) {this.animateFrames()}
         
@@ -134,7 +148,14 @@ class Fighter extends Sprite{
         this.position.x += this.velocity.x
         this.position.y += this.velocity.y
 
-        if (this.position.y + this.height + this.velocity.y >= canvas.height - 100) {
+        if(platformCollision({object1: this, object2: midairplatform1})) {
+            if (this.velocity.y > 0) {
+                console.log(this.velocity.y)
+                this.velocity.y = 0
+                this.position.y = midairplatform1.position.y - this.height
+                this.switchSprite('idle')
+            }
+        } else if (this.position.y + this.height + this.velocity.y >= canvas.height - 100) {
             // stop player from sinking into the ground upon initial impact from spawn fall
             this.velocity.y = 0
             this.position.y = 752
@@ -287,3 +308,23 @@ class Fighter extends Sprite{
         }
     }
 }
+
+class MidairPlatform {
+    constructor({
+        position, 
+        width, 
+        height}) {
+      this.position = position
+      this.width = width
+      this.height = height
+    }
+  
+    draw() {
+      c.fillStyle = 'rgba(255, 0, 0, 0.5)'
+      c.fillRect(this.position.x, this.position.y, this.width, this.height)
+    }
+  
+    update() {
+      this.draw()
+    }
+  }
