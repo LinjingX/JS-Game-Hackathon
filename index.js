@@ -13,6 +13,7 @@ const SPRITE_HEIGHT = 150*2
 
 /* OTHER CONSTANTS */
 const GRAVITY_RATE = 0.2
+const DAMAGE = 2.5
 const DISPLAY_TIE = 'Tie'
 const DISPLAY_P1WIN = 'Samurai Mack Wins!'
 const DISPLAY_P2WIN = 'Kenji Wins!'
@@ -44,7 +45,7 @@ const shop = new Sprite({
 
 // Create player 1
 const player1 = new Fighter({
-    position: {x: 0, y: getRandomInt(-100, 100)}, 
+    position: {x: 550, y: getRandomInt(-100, 100)}, 
     velocity: {x: 0, y: 0},
     offset: {
         x: 0,
@@ -131,7 +132,7 @@ const player1 = new Fighter({
 
 // Create player 2
 const player2 = new Fighter({
-    position: {x: 1000, y: getRandomInt(-100, 100)}, 
+    position: {x: 1400, y: getRandomInt(-100, 100)}, 
     velocity: {x: 0, y: 0},
     offset: {
         x: -100,
