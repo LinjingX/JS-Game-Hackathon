@@ -237,8 +237,8 @@ const player2 = new Fighter({
         height: 100
     },
     hitbox: {
-        width: 10,
-        height: 10
+        width: SPRITE_WIDTH,
+        height: SPRITE_HEIGHT - 90
     }
 })
 

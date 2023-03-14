@@ -149,29 +149,25 @@ class Fighter extends Sprite{
         //c.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height)
 
         this.position.x += this.velocity.x
+
+        // apply gravity
+        this.velocity.y += GRAVITY_RATE
         this.position.y += this.velocity.y
 
-        // let onPlatform = false
+        // loop through the platform, check if player standing on any platform
+        for(let i = 0; i < platformlist.length; i++){
+            if(platformCollision({object1: this.hitbox, object2: platformlist[i]})) {
+                if (this.velocity.y > 0) {
+                    this.velocity.y = 0
+                    this.position.y = platformlist[i].position.y - this.hitbox.height
+                }
+            } 
+        }
 
-        // onPlatform = this.checkPlatforCollision(platformlist)
-        
-        // console.log(onPlatform + 'on platfor')
-
-        let onPlatform = this.checkPlatforCollision(platformlist)
-
-        console.log(onPlatform)
-
-        if(!onPlatform){
-            console.log('not on platform')
-            if (this.position.y + this.height + this.velocity.y >= canvas.height - 100) {
-                // stop player from sinking into the ground upon initial impact from spawn fall
-                this.velocity.y = 0
-                this.position.y = 752
-            } else {
-                // otherwise apply gravity
-                this.velocity.y += GRAVITY_RATE
-                console.log('velocity')
-            }
+        if (this.position.y + this.height + this.velocity.y >= canvas.height - 100) {
+            // stop player from sinking into the ground upon initial impact from spawn fall
+            this.velocity.y = 0
+            this.position.y = 752
         }
     }
 
@@ -316,20 +312,6 @@ class Fighter extends Sprite{
                     this.framesCurrent = 0
                 }
                 break
-        }
-    }
-
-    checkPlatforCollision(platformlist){
-        for(let i = 0; i < platformlist.length; i++){
-            if(platformCollision({object1: this.hitbox, object2: platformlist[i]})) {
-                if (this.velocity.y > 0) {
-                    console.log(platformlist[i])
-                    this.velocity.y = 0
-                    this.position.y = platformlist[i].position.y - this.hitbox.height
-                    this.switchSprite('idle')
-                    return true
-                }
-            } 
         }
     }
 }
