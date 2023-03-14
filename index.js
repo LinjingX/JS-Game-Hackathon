@@ -43,17 +43,22 @@ const shop = new Sprite({
     framesMax: 6
 })
 
+// Create mid air platform
+var platformlist = []
+
 const midairplatform1 = new MidairPlatform({
     position: {x: 1200, y: 300},
     width: 800,
     height: 50
 })
+platformlist.push(midairplatform1)
 
 const midairplatform2 = new MidairPlatform({
     position: {x: 50, y: 600},
     width: 500,
     height: 50
 })
+platformlist.push(midairplatform2)
 
 // Create player 1
 const player1 = new Fighter({
@@ -141,8 +146,8 @@ const player1 = new Fighter({
         height: 100
     },
     hitbox: {
-        width: 10,
-        height: 10
+        width: SPRITE_WIDTH,
+        height: SPRITE_HEIGHT - 90
     }
 })
 
@@ -257,10 +262,11 @@ function animate() {
     c.fillRect(0, 0, canvas.width, canvas.height)
     background.update()
     shop.update()
-    midairplatform1.update()
-    midairplatform2.update()
-    player1.update(midairplatform1)
-    player2.update(midairplatform1)
+    for(let i = 0; i < platformlist.length; i++){
+        platformlist[i].update()
+    }
+    player1.update(platformlist)
+    player2.update(platformlist)
 
     player1.velocity.x = 0
     player2.velocity.x = 0

@@ -130,15 +130,18 @@ class Fighter extends Sprite{
         )
       }
 
-    update(midairplatform1) {
+    update(platformlist) {
         c.fillStyle = 'rgba(0, 255, 0, 0.2)'
-        c.fillRect(this.position.x, this.position.y, this.width, this.height -90)
+        c.fillRect(this.position.x, this.position.y, this.width, this.height)
 
         c.fillStyle = 'rgba(255, 0, 0, 0.2)'
-        c.fillRect(this.hitbox.position.x, this.hitbox.position.y, this.width, this.height)
+        c.fillRect(this.hitbox.position.x, this.hitbox.position.y, this.hitbox.width, this.hitbox.height)
         this.draw()
         if (!this.dead) {this.animateFrames()}
         
+        this.hitbox.position.x = this.position.x
+        this.hitbox.position.y = this.position.y
+
         this.attackBox.position.x = this.position.x + this.attackBox.offset.x
         this.attackBox.position.y = this.position.y + this.attackBox.offset.y
 
@@ -148,22 +151,30 @@ class Fighter extends Sprite{
         this.position.x += this.velocity.x
         this.position.y += this.velocity.y
 
-        if(platformCollision({object1: this, object2: midairplatform1})) {
-            if (this.velocity.y > 0) {
-                console.log(this.velocity.y)
+        // let onPlatform = false
+
+        // onPlatform = this.checkPlatforCollision(platformlist)
+        
+        // console.log(onPlatform + 'on platfor')
+
+        let onPlatform = this.checkPlatforCollision(platformlist)
+
+        console.log(onPlatform)
+
+        if(!onPlatform){
+            console.log('not on platform')
+            if (this.position.y + this.height + this.velocity.y >= canvas.height - 100) {
+                // stop player from sinking into the ground upon initial impact from spawn fall
                 this.velocity.y = 0
-                this.position.y = midairplatform1.position.y - this.height
-                this.switchSprite('idle')
+                this.position.y = 752
+            } else {
+                // otherwise apply gravity
+                this.velocity.y += GRAVITY_RATE
+                console.log('velocity')
             }
-        } else if (this.position.y + this.height + this.velocity.y >= canvas.height - 100) {
-            // stop player from sinking into the ground upon initial impact from spawn fall
-            this.velocity.y = 0
-            this.position.y = 752
-        } else {
-            // otherwise apply gravity
-            this.velocity.y += GRAVITY_RATE
         }
     }
+
 
     attack() {
         if (this.lastKey === 'a' || this.lastKey === 'ArrowRight') {
@@ -305,6 +316,20 @@ class Fighter extends Sprite{
                     this.framesCurrent = 0
                 }
                 break
+        }
+    }
+
+    checkPlatforCollision(platformlist){
+        for(let i = 0; i < platformlist.length; i++){
+            if(platformCollision({object1: this.hitbox, object2: platformlist[i]})) {
+                if (this.velocity.y > 0) {
+                    console.log(platformlist[i])
+                    this.velocity.y = 0
+                    this.position.y = platformlist[i].position.y - this.hitbox.height
+                    this.switchSprite('idle')
+                    return true
+                }
+            } 
         }
     }
 }
