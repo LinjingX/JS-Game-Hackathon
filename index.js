@@ -47,18 +47,25 @@ const shop = new Sprite({
 var platformlist = []
 
 const midairplatform1 = new MidairPlatform({
-    position: {x: 1200, y: 300},
-    width: 800,
+    position: {x: 50, y: 600},
+    width: 200,
     height: 50
 })
 platformlist.push(midairplatform1)
 
 const midairplatform2 = new MidairPlatform({
-    position: {x: 50, y: 600},
-    width: 500,
+    position: {x: 700, y: 500},
+    width: 200,
     height: 50
 })
 platformlist.push(midairplatform2)
+
+const midairplatform3 = new MidairPlatform({
+    position: {x: 1250, y: 500},
+    width: 550,
+    height: 50
+})
+platformlist.push(midairplatform3)
 
 // Create player 1
 const player1 = new Fighter({
@@ -262,7 +269,7 @@ function animate() {
     c.fillRect(0, 0, canvas.width, canvas.height)
     background.update()
     shop.update()
-    for(let i = 0; i < platformlist.length; i++){
+    for(let i = 0; i < platformlist.length-1; i++){
         platformlist[i].update()
     }
     player1.update(platformlist)
