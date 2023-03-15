@@ -320,15 +320,25 @@ class MidairPlatform {
     constructor({
         position, 
         width, 
-        height}) {
+        height, 
+        imageSrc}) {
       this.position = position
       this.width = width
       this.height = height
+      this.image = new Image()
+      this.image.src = imageSrc
     }
   
     draw() {
-      c.fillStyle = 'rgba(255, 0, 0, 0.5)'
-      c.fillRect(this.position.x, this.position.y, this.width, this.height)
+      //c.fillStyle = 'rgba(255, 0, 0, 0.5)'
+      //c.fillRect(this.position.x, this.position.y, this.width, this.height)
+      c.drawImage(
+        this.image,
+        this.position.x,
+        this.position.y,
+        this.width,
+        this.height
+      )
     }
   
     update() {

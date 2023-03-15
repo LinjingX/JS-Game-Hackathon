@@ -48,22 +48,25 @@ var platformlist = []
 
 const midairplatform1 = new MidairPlatform({
     position: {x: 50, y: 600},
-    width: 200,
-    height: 50
+    width: 300,
+    height: 50, 
+    imageSrc: './assets/platform.png'
 })
 platformlist.push(midairplatform1)
 
 const midairplatform2 = new MidairPlatform({
     position: {x: 700, y: 500},
-    width: 200,
-    height: 50
+    width: 300,
+    height: 50, 
+    imageSrc: './assets/platform.png'
 })
 platformlist.push(midairplatform2)
 
 const midairplatform3 = new MidairPlatform({
     position: {x: 1250, y: 500},
     width: 550,
-    height: 50
+    height: 50, 
+    imageSrc: './assets/platform.png'
 })
 platformlist.push(midairplatform3)
 
