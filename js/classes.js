@@ -131,8 +131,8 @@ class Fighter extends Sprite{
       }
 
     update(platformlist) {
-        //c.fillStyle = 'rgba(0, 255, 0, 0.2)'
-        //c.fillRect(this.position.x, this.position.y, this.width, this.height)
+        // c.fillStyle = 'rgba(0, 255, 0, 0.2)'
+        // c.fillRect(this.position.x, this.position.y, this.width, this.height)
 
         //c.fillStyle = 'rgba(255, 0, 0, 0.2)'
         //c.fillRect(this.hitbox.position.x, this.hitbox.position.y, this.hitbox.width, this.hitbox.height)
@@ -141,12 +141,17 @@ class Fighter extends Sprite{
         
         this.hitbox.position.x = this.position.x
         this.hitbox.position.y = this.position.y
-
-        this.attackBox.position.x = this.position.x + this.attackBox.offset.x
-        this.attackBox.position.y = this.position.y + this.attackBox.offset.y
+        
+        if(this.lastKey === 'a' || this.lastKey === 'ArrowRight') {
+            this.attackBox.position.x = this.position.x + SPRITE_WIDTH - this.attackBox.offset.x - this.attackBox.width
+            this.attackBox.position.y = this.position.y + this.attackBox.offset.y
+        } else {
+            this.attackBox.position.x = this.position.x + this.attackBox.offset.x
+            this.attackBox.position.y = this.position.y + this.attackBox.offset.y
+        }
 
         // draw attack box
-        //c.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height)
+        // c.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height)
 
         this.position.x += this.velocity.x
 
