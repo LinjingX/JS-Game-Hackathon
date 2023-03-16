@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Open HTML in Same Window</title>
+</head>
+<body>
+	<h1>Click a button to open a new HTML file in the same window</h1>
+	<button onclick="openHtml('index.html')">Open Page 1</button>
+	<button onclick="openHtml('map2.html')">Open Page 2</button>
+	<button onclick="openHtml('page3.html')">Open Page 3</button>
+
+	<script>
+		function openHtml(url) {
+			window.open(url, '_self');
+		}
+	</script>
+</body>
+</html>
