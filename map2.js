@@ -15,7 +15,7 @@ const SPRITE_HEIGHT = 150*2
 const GRAVITY_RATE = 0.2
 const DAMAGE = 2.5
 const DISPLAY_TIE = 'Tie'
-const DISPLAY_P1WIN = 'Samurai Mack Wins!'
+const DISPLAY_P1WIN = 'Fantasy Warrior Wins!'
 const DISPLAY_P2WIN = 'Kenji Wins!'
 const keys = {
     w : {pressed: false},
@@ -32,16 +32,16 @@ c.fillRect(0, 0, canvas.width, canvas.height)
 // Create background sprite
 const background = new Sprite({
     position: {x: 0, y: 0}, 
-    imageSrc: './assets/background.png'
+    imageSrc: './assets/background2.png'
 })
 
 // Create shop sprite
-const shop = new Sprite({
+/* const shop = new Sprite({
     position: {x: 1200, y: 256}, 
     imageSrc: './assets/shop.png',
     scale: 5.5,
     framesMax: 6
-})
+}) */
 
 // Create mid air platform
 var platformlist = []
@@ -55,7 +55,7 @@ const midairplatform1 = new MidairPlatform({
 platformlist.push(midairplatform1)
 
 const midairplatform2 = new MidairPlatform({
-    position: {x: 700, y: 500},
+    position: {x: 500, y: 450},
     width: 300,
     height: 50, 
     imageSrc: './assets/platform.png'
@@ -63,88 +63,114 @@ const midairplatform2 = new MidairPlatform({
 platformlist.push(midairplatform2)
 
 const midairplatform3 = new MidairPlatform({
-    position: {x: 1250, y: 500},
-    width: 550,
+    position: {x: 780, y: 750},
+    width: 450,
     height: 50, 
     imageSrc: './assets/platform.png'
 })
 platformlist.push(midairplatform3)
 
+const midairplatform4 = new MidairPlatform({
+    position: {x: 1200, y: 450},
+    width: 300,
+    height: 50, 
+    imageSrc: './assets/platform.png'
+})
+platformlist.push(midairplatform4)
+
+const midairplatform5 = new MidairPlatform({
+    position: {x: 1650, y: 600},
+    width: 300,
+    height: 50, 
+    imageSrc: './assets/platform.png'
+})
+platformlist.push(midairplatform5)
+
 // Create player 1
 const player1 = new Fighter({
-    position: {x: 550, y: getRandomInt(-100, 100)}, 
+    position: {x: 375, y: getRandomInt(-100, 100)}, 
     velocity: {x: 0, y: 0},
     offset: {
         x: 0,
         y: 0
     }, 
-    imageSrc: './assets/samuraiMack/Idle.png',
+    imageSrc: './assets/ciri/Idle.png',
     scale: 4,
-    framesMax: 8,
+    framesMax: 10,
     offset: {
         x: 345,
-        y: 280
+        y: 290
     }, 
     sprites: {
         idle: {
-            imageSrc: './assets/samuraiMack/Idle.png', 
-            framesMax: 8
+            imageSrc: './assets/baseballBat/Idle.png', 
+            framesMax: 10
         }, 
         idle2: {
-            imageSrc: './assets/samuraiMack/Idle2.png', 
-            framesMax: 8
+            imageSrc: './assets/baseballBat/Idle-flip.png', 
+            framesMax: 10
         }, 
         run : {
-            imageSrc: './assets/samuraiMack/Run.png', 
+            imageSrc: './assets/baseballBat/Run.png', 
             framesMax: 8, 
             image: new Image()
         },
         run2 : {
-            imageSrc: './assets/samuraiMack/Run2.png', 
+            imageSrc: './assets/baseballBat/Run-flip.png', 
             framesMax: 8,
             image: new Image()
         },
         jump : {
-            imageSrc: './assets/samuraiMack/Jump.png', 
-            framesMax: 2, 
+            imageSrc: './assets/baseballBat/Jump.png', 
+            framesMax: 3, 
             image: new Image()
         }, 
         jump2 : {
-            imageSrc: './assets/samuraiMack/Jump2.png', 
-            framesMax: 2, 
+            imageSrc: './assets/baseballBat/Jump-flip.png', 
+            framesMax: 3, 
             image: new Image()
         }, 
         fall : {
-            imageSrc: './assets/samuraiMack/Fall.png', 
-            framesMax: 2, 
+            imageSrc: './assets/baseballBat/Fall.png', 
+            framesMax: 3, 
             image: new Image()
         }, 
         fall2 : {
-            imageSrc: './assets/samuraiMack/Fall2.png', 
-            framesMax: 2, 
+            imageSrc: './assets/baseballBat/Fall-flip.png', 
+            framesMax: 3, 
             image: new Image()
         }, 
         attack1 : {
-            imageSrc: './assets/samuraiMack/Attack1.png', 
-            framesMax: 6, 
+            imageSrc: './assets/baseballBat/Attack1.png', 
+            framesMax: 7, 
             image: new Image()
         },
         attack1_flipped : {
-            imageSrc: './assets/samuraiMack/attack1_flipped.png', 
-            framesMax: 6, 
+            imageSrc: './assets/baseballBat/Attack1-flip.png', 
+            framesMax: 7, 
+            image: new Image()
+        },
+        attack2 : {
+            imageSrc: './assets/baseballBat/Attack2.png', 
+            framesMax: 7, 
+            image: new Image()
+        },
+        attack2_flipped : {
+            imageSrc: './assets/baseballBat/Attack2-flip.png', 
+            framesMax: 7, 
             image: new Image()
         },
         takeHit: {
-            imageSrc: './assets/samuraiMack/Take Hit.png',
-            framesMax: 4 
+            imageSrc: './assets/baseballBat/Hit.png',
+            framesMax: 3 
         },
         takeHit2: {
-            imageSrc: './assets/samuraiMack/Take Hit2.png',
-            framesMax: 4 
+            imageSrc: './assets/baseballBat/Hit-flip.png',
+            framesMax: 3
         }, 
         death: {
-            imageSrc: './assets/samuraiMack/Death.png',
-            framesMax: 6
+            imageSrc: './assets/baseballBat/Death.png',
+            framesMax: 11
         }
     },
     attackBox: {
@@ -163,7 +189,7 @@ const player1 = new Fighter({
 
 // Create player 2
 const player2 = new Fighter({
-    position: {x: 1400, y: getRandomInt(-100, 100)}, 
+    position: {x: 1525, y: getRandomInt(-100, 100)}, 
     velocity: {x: 0, y: 0},
     offset: {
         x: -100,
@@ -225,6 +251,16 @@ const player2 = new Fighter({
             framesMax: 4, 
             image: new Image()
         },
+        attack2 : {
+            imageSrc: './assets/kenji/Attack2.png', 
+            framesMax: 4, 
+            image: new Image()
+        },
+        attack2_flipped : {
+            imageSrc: './assets/kenji/Attack2-flip.png', 
+            framesMax: 4, 
+            image: new Image()
+        },
         takeHit: {
             imageSrc: './assets/kenji/Take Hit.png',
             framesMax: 3 
@@ -271,8 +307,8 @@ function animate() {
     c.fillStyle = 'black'
     c.fillRect(0, 0, canvas.width, canvas.height)
     background.update()
-    shop.update()
-    for(let i = 0; i < platformlist.length-1; i++){
+    //shop.update()
+    for(let i = 0; i < platformlist.length; i++){
         platformlist[i].update()
     }
     player1.update(platformlist)
@@ -381,9 +417,6 @@ function animate() {
     if (player2.isAttacking && player2.framesCurrent === 1){
         player2.isAttacking = false
     }
-
-    // detect player1 and mid-air platform collisions
-    
 
     // end game based on health
     if (player1.health  <= 0 || player2.health  <= 0) {

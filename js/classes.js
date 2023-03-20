@@ -104,6 +104,7 @@ class Fighter extends Sprite{
         this.framesHold = 5
         this.sprites = sprites
         this.dead = false
+        this.attackanim = 0
 
         for (const sprite in this.sprites) {
             sprites[sprite].image = new Image()
@@ -131,11 +132,11 @@ class Fighter extends Sprite{
       }
 
     update(platformlist) {
-        // c.fillStyle = 'rgba(0, 255, 0, 0.2)'
-        // c.fillRect(this.position.x, this.position.y, this.width, this.height)
+        c.fillStyle = 'rgba(0, 255, 0, 0.2)'
+        c.fillRect(this.position.x, this.position.y, this.width, this.height)
 
-        //c.fillStyle = 'rgba(255, 0, 0, 0.2)'
-        //c.fillRect(this.hitbox.position.x, this.hitbox.position.y, this.hitbox.width, this.hitbox.height)
+        c.fillStyle = 'rgba(255, 0, 0, 0.2)'
+        c.fillRect(this.hitbox.position.x, this.hitbox.position.y, this.hitbox.width, this.hitbox.height)
         this.draw()
         if (!this.dead) {this.animateFrames()}
         
@@ -151,7 +152,7 @@ class Fighter extends Sprite{
         }
 
         // draw attack box
-        // c.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height)
+        c.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height)
 
         this.position.x += this.velocity.x
 
@@ -178,9 +179,26 @@ class Fighter extends Sprite{
 
 
     attack() {
+        console.log(this.attackanim)
         if (this.lastKey === 'a' || this.lastKey === 'ArrowRight') {
-            this.switchSprite('attack1_flipped')
-        } else {this.switchSprite('attack1')}
+            if (this.attackanim === 0) {
+                this.switchSprite('attack1_flipped')
+            } else {
+                this.switchSprite('attack2_flipped')
+            }
+        } else {
+            if (this.attackanim === 0) {
+                this.switchSprite('attack1')
+            } else {
+                this.switchSprite('attack2')
+            }
+        }
+        
+        if (this.attackanim >= 1) {
+            this.attackanim = 0
+        } else {
+            this.attackanim += 1
+        }
 
         this.isAttacking = true
     }
@@ -211,6 +229,16 @@ class Fighter extends Sprite{
 
         if (this.image === this.sprites.attack1_flipped.image && 
             this.framesCurrent < this.sprites.attack1_flipped.framesMax - 1){
+            return
+        }
+
+        if (this.image === this.sprites.attack2.image && 
+            this.framesCurrent < this.sprites.attack2.framesMax - 1){
+            return
+        }
+
+        if (this.image === this.sprites.attack2_flipped.image && 
+            this.framesCurrent < this.sprites.attack2_flipped.framesMax - 1){
             return
         }
 
@@ -293,6 +321,20 @@ class Fighter extends Sprite{
                 if (this.image !== this.sprites.attack1_flipped.image) {
                     this.image = this.sprites.attack1_flipped.image
                     this.framesMax = this.sprites.attack1_flipped.framesMax
+                    this.framesCurrent = 0
+                }
+                break
+            case 'attack2':
+                if (this.image !== this.sprites.attack2.image) {
+                    this.image = this.sprites.attack2.image
+                    this.framesMax = this.sprites.attack2.framesMax
+                    this.framesCurrent = 0
+                }
+                break
+            case 'attack2_flipped':
+                if (this.image !== this.sprites.attack2_flipped.image) {
+                    this.image = this.sprites.attack2_flipped.image
+                    this.framesMax = this.sprites.attack2_flipped.framesMax
                     this.framesCurrent = 0
                 }
                 break
