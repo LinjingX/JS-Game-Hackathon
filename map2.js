@@ -32,7 +32,7 @@ c.fillRect(0, 0, canvas.width, canvas.height)
 // Create background sprite
 const background = new Sprite({
     position: {x: 0, y: 0}, 
-    imageSrc: './assets/background2.png'
+    imageSrc: './assets/gothicVania.png'
 })
 
 // Create shop sprite
@@ -47,44 +47,36 @@ const background = new Sprite({
 var platformlist = []
 
 const midairplatform1 = new MidairPlatform({
-    position: {x: 50, y: 600},
-    width: 300,
+    position: {x: 225, y: 770},
+    width: 140,
     height: 50, 
-    imageSrc: './assets/platform.png'
+    imageSrc: './assets/transparent.png'
 })
 platformlist.push(midairplatform1)
 
 const midairplatform2 = new MidairPlatform({
-    position: {x: 500, y: 450},
-    width: 300,
+    position: {x: 470, y: 600},
+    width: 450,
     height: 50, 
-    imageSrc: './assets/platform.png'
+    imageSrc: './assets/transparent.png'
 })
 platformlist.push(midairplatform2)
 
 const midairplatform3 = new MidairPlatform({
-    position: {x: 780, y: 750},
-    width: 450,
+    position: {x: 1000, y: 330},
+    width: 480,
     height: 50, 
-    imageSrc: './assets/platform.png'
+    imageSrc: './assets/transparent.png'
 })
 platformlist.push(midairplatform3)
 
 const midairplatform4 = new MidairPlatform({
-    position: {x: 1200, y: 450},
+    position: {x: 1475, y: 730},
     width: 300,
     height: 50, 
-    imageSrc: './assets/platform.png'
+    imageSrc: './assets/transparent.png'
 })
 platformlist.push(midairplatform4)
-
-const midairplatform5 = new MidairPlatform({
-    position: {x: 1650, y: 600},
-    width: 300,
-    height: 50, 
-    imageSrc: './assets/platform.png'
-})
-platformlist.push(midairplatform5)
 
 // Create player 1
 const player1 = new Fighter({
