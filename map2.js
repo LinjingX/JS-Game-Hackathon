@@ -94,7 +94,7 @@ const player1 = new Fighter({
         x: 0,
         y: 0
     }, 
-    imageSrc: './assets/ciri/Idle.png',
+    imageSrc: './assets/baseballBat/Idle.png',
     scale: 4,
     framesMax: 10,
     offset: {

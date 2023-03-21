@@ -134,6 +134,16 @@ const player1 = new Fighter({
             framesMax: 6, 
             image: new Image()
         },
+        attack2 : {
+            imageSrc: './assets/samuraiMack/Attack2.png', 
+            framesMax: 4, 
+            image: new Image()
+        },
+        attack2_flipped : {
+            imageSrc: './assets/samuraiMack/Attack2-flip.png', 
+            framesMax: 4, 
+            image: new Image()
+        },
         takeHit: {
             imageSrc: './assets/samuraiMack/Take Hit.png',
             framesMax: 4 
@@ -222,6 +232,16 @@ const player2 = new Fighter({
         },
         attack1_flipped : {
             imageSrc: './assets/kenji/Attack1_flip.png', 
+            framesMax: 4, 
+            image: new Image()
+        },
+        attack2 : {
+            imageSrc: './assets/kenji/Attack2.png', 
+            framesMax: 4, 
+            image: new Image()
+        },
+        attack2_flipped : {
+            imageSrc: './assets/kenji/Attack2-flip.png', 
             framesMax: 4, 
             image: new Image()
         },
