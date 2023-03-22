@@ -131,7 +131,7 @@ class Fighter extends Sprite{
         )
       }
 
-    update(platformlist) {
+    update(platformlist, groundoffset) {
         c.fillStyle = 'rgba(0, 255, 0, 0.2)'
         c.fillRect(this.position.x, this.position.y, this.width, this.height)
 
@@ -171,10 +171,10 @@ class Fighter extends Sprite{
         }
 
         // whatever you add to the offset in the if statement subtract from the this.position.y value (add -x then subtract -x (+x in this case))
-        if (this.position.y + this.height + this.velocity.y >= canvas.height - 40) {
+        if (this.position.y + this.height + this.velocity.y >= canvas.height - groundoffset) {
             // stop player from sinking into the ground upon initial impact from spawn fall
             this.velocity.y = 0
-            this.position.y = 812
+            this.position.y = 852 - groundoffset
         }
     }
 

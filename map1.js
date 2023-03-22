@@ -13,6 +13,7 @@ const SPRITE_HEIGHT = 150*2
 
 /* OTHER CONSTANTS */
 const GRAVITY_RATE = 0.2
+const GROUND_OFFSET = 100
 const DAMAGE = 2.5
 const DISPLAY_TIE = 'Tie'
 const DISPLAY_P1WIN = 'Samurai Mack Wins!'
@@ -295,8 +296,8 @@ function animate() {
     for(let i = 0; i < platformlist.length-1; i++){
         platformlist[i].update()
     }
-    player1.update(platformlist)
-    player2.update(platformlist)
+    player1.update(platformlist, GROUND_OFFSET)
+    player2.update(platformlist, GROUND_OFFSET)
 
     player1.velocity.x = 0
     player2.velocity.x = 0
