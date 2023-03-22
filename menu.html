@@ -1,14 +1,37 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+	<style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Press Start 2P', cursive;
+        }
+    </style>
+
+	<style> 
+		.button1 {
+		background-color: #4CAF50; /* Green */
+		border: none;
+  		color: white;
+  		padding: 30px 60px;
+  		text-align: center;
+  		text-decoration: none;
+  		display: inline-block;
+  		font-size: 20px;
+		}
+	</style> 
+
 	<title>FighterGame</title>
 </head>
 
 <body>
 	<body style="background-image: url('./assets/menu-bg.png'); background-size: 2048px 1152px ; background-repeat: no-repeat;"></body>
-	<h1 style = "display: flex; align-items: center; justify-content: center;">FighterGame</h1>
-	<button onclick="openHtml('map1.html')">Level 1</button>
-	<button onclick="openHtml('map2.html')">Level 2</button>
+	<h1 style="font-size: 100px; color: white; -webkit-text-stroke: 4px black">FighterGame</h1>
+	<button class="button1" onclick="openHtml('map1.html')">Level 1</button>
+	<button class="button1" onclick="openHtml('map2.html')">Level 2</button>
 
 	<script>
 		function openHtml(url) {

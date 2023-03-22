@@ -170,10 +170,10 @@ class Fighter extends Sprite{
             } 
         }
 
-        if (this.position.y + this.height + this.velocity.y >= canvas.height - 100) {
+        if (this.position.y + this.height + this.velocity.y >= canvas.height - 40) {
             // stop player from sinking into the ground upon initial impact from spawn fall
             this.velocity.y = 0
-            this.position.y = 752
+            this.position.y = 812
         }
     }
 

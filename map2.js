@@ -91,7 +91,7 @@ const player1 = new Fighter({
     framesMax: 10,
     offset: {
         x: 345,
-        y: 290
+        y: 305
     }, 
     sprites: {
         idle: {
