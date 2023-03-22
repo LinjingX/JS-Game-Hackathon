@@ -170,6 +170,7 @@ class Fighter extends Sprite{
             } 
         }
 
+        // whatever you add to the offset in the if statement subtract from the this.position.y value (add -x then subtract -x (+x in this case))
         if (this.position.y + this.height + this.velocity.y >= canvas.height - 40) {
             // stop player from sinking into the ground upon initial impact from spawn fall
             this.velocity.y = 0
