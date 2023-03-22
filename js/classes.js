@@ -215,6 +215,11 @@ class Fighter extends Sprite{
         }
     }
 
+    fallToDeath() {
+        this.health -= this.health
+        this.switchSprite('death')
+    }
+
     switchSprite(sprite) {
         // stop animating on death
         if (this.image === this.sprites.death.image) {
