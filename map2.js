@@ -71,8 +71,8 @@ const midairplatform3 = new MidairPlatform({
 platformlist.push(midairplatform3)
 
 const midairplatform4 = new MidairPlatform({
-    position: {x: 1475, y: 730},
-    width: 300,
+    position: {x: 1525, y: 740},
+    width: 250,
     height: 50, 
     imageSrc: './assets/transparent.png'
 })
