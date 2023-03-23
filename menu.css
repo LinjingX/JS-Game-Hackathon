@@ -1,0 +1,17 @@
+.title {
+    font-size: 100px;
+    color: white;
+    -webkit-text-stroke: 4px black;
+    margin: 100px
+}
+
+.button-container {
+    position: relative;
+    top: 60%;
+    left: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transform: translate(-50%, -50%);
+}
