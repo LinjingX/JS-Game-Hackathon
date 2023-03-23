@@ -14,10 +14,10 @@ const SPRITE_HEIGHT = 150*2
 /* OTHER CONSTANTS */
 const GRAVITY_RATE = 0.2
 const GROUND_OFFSET = 35
-const DAMAGE = 2.5
-const DISPLAY_TIE = 'Tie'
-const DISPLAY_P1WIN = 'Fantasy Warrior Wins!'
-const DISPLAY_P2WIN = 'Kenji Wins!'
+const DAMAGE = 1.5
+const DISPLAY_TIE = 'DRAW'
+const DISPLAY_P1WIN = 'FANTASY WARRIOR Wins!'
+const DISPLAY_P2WIN = 'HUNTRESS Wins!'
 const keys = {
     w : {pressed: false},
     a : {pressed: false},
@@ -87,7 +87,7 @@ const player1 = new Fighter({
         x: 0,
         y: 0
     }, 
-    imageSrc: './assets/baseballBat/Idle.png',
+    imageSrc: './assets/fantasyWarrior/Idle.png',
     scale: 4,
     framesMax: 10,
     offset: {
@@ -96,74 +96,74 @@ const player1 = new Fighter({
     }, 
     sprites: {
         idle: {
-            imageSrc: './assets/baseballBat/Idle.png', 
+            imageSrc: './assets/fantasyWarrior/Idle.png', 
             framesMax: 10
         }, 
         idle2: {
-            imageSrc: './assets/baseballBat/Idle-flip.png', 
+            imageSrc: './assets/fantasyWarrior/Idle-flip.png', 
             framesMax: 10
         }, 
         run : {
-            imageSrc: './assets/baseballBat/Run.png', 
+            imageSrc: './assets/fantasyWarrior/Run.png', 
             framesMax: 8, 
             image: new Image()
         },
         run2 : {
-            imageSrc: './assets/baseballBat/Run-flip.png', 
+            imageSrc: './assets/fantasyWarrior/Run-flip.png', 
             framesMax: 8,
             image: new Image()
         },
         jump : {
-            imageSrc: './assets/baseballBat/Jump.png', 
+            imageSrc: './assets/fantasyWarrior/Jump.png', 
             framesMax: 3, 
             image: new Image()
         }, 
         jump2 : {
-            imageSrc: './assets/baseballBat/Jump-flip.png', 
+            imageSrc: './assets/fantasyWarrior/Jump-flip.png', 
             framesMax: 3, 
             image: new Image()
         }, 
         fall : {
-            imageSrc: './assets/baseballBat/Fall.png', 
+            imageSrc: './assets/fantasyWarrior/Fall.png', 
             framesMax: 3, 
             image: new Image()
         }, 
         fall2 : {
-            imageSrc: './assets/baseballBat/Fall-flip.png', 
+            imageSrc: './assets/fantasyWarrior/Fall-flip.png', 
             framesMax: 3, 
             image: new Image()
         }, 
         attack1 : {
-            imageSrc: './assets/baseballBat/Attack1.png', 
+            imageSrc: './assets/fantasyWarrior/Attack1.png', 
             framesMax: 7, 
             image: new Image()
         },
         attack1_flipped : {
-            imageSrc: './assets/baseballBat/Attack1-flip.png', 
+            imageSrc: './assets/fantasyWarrior/Attack1-flip.png', 
             framesMax: 7, 
             image: new Image()
         },
         attack2 : {
-            imageSrc: './assets/baseballBat/Attack2.png', 
+            imageSrc: './assets/fantasyWarrior/Attack2.png', 
             framesMax: 7, 
             image: new Image()
         },
         attack2_flipped : {
-            imageSrc: './assets/baseballBat/Attack2-flip.png', 
+            imageSrc: './assets/fantasyWarrior/Attack2-flip.png', 
             framesMax: 7, 
             image: new Image()
         },
         takeHit: {
-            imageSrc: './assets/baseballBat/Hit.png',
+            imageSrc: './assets/fantasyWarrior/Hit.png',
             framesMax: 3 
         },
         takeHit2: {
-            imageSrc: './assets/baseballBat/Hit-flip.png',
+            imageSrc: './assets/fantasyWarrior/Hit-flip.png',
             framesMax: 3
         }, 
         death: {
-            imageSrc: './assets/baseballBat/Death.png',
-            framesMax: 11
+            imageSrc: './assets/fantasyWarrior/Death.png',
+            framesMax: 7
         }
     },
     attackBox: {
@@ -175,7 +175,7 @@ const player1 = new Fighter({
         height: 100
     },
     hitbox: {
-        width: SPRITE_WIDTH,
+        width: SPRITE_WIDTH - 50,
         height: SPRITE_HEIGHT - 90
     }
 })
@@ -188,83 +188,83 @@ const player2 = new Fighter({
         x: -100,
         y: 0
     }, 
-    imageSrc: './assets/kenji/Idle.png',
+    imageSrc: './assets/huntress/Idle-flip.png',
     scale: 4,
-    framesMax: 4,
+    framesMax: 8,
     offset: {
         x: 350,
         y: 300
     }, 
     sprites: {
         idle: {
-            imageSrc: './assets/kenji/Idle.png', 
-            framesMax: 4
+            imageSrc: './assets/huntress/Idle-flip.png', 
+            framesMax: 8
         }, 
         idle2: {
-            imageSrc: './assets/kenji/Idle_flip.png', 
-            framesMax: 4
+            imageSrc: './assets/huntress/Idle.png', 
+            framesMax: 8
         }, 
         run : {
-            imageSrc: './assets/kenji/Run.png', 
+            imageSrc: './assets/huntress/Run-flip.png', 
             framesMax: 8, 
             image: new Image()
         },
         run2 : {
-            imageSrc: './assets/kenji/Run_flip.png', 
+            imageSrc: './assets/huntress/Run.png', 
             framesMax: 8,
             image: new Image()
         },
         jump : {
-            imageSrc: './assets/kenji/Jump.png', 
+            imageSrc: './assets/huntress/Jump-flip.png', 
             framesMax: 2, 
             image: new Image()
         }, 
         jump2 : {
-            imageSrc: './assets/kenji/Jump_flip.png', 
+            imageSrc: './assets/huntress/Jump.png', 
             framesMax: 2, 
             image: new Image()
         }, 
         fall : {
-            imageSrc: './assets/kenji/Fall.png', 
+            imageSrc: './assets/huntress/Fall-flip.png', 
             framesMax: 2, 
             image: new Image()
         }, 
         fall2 : {
-            imageSrc: './assets/kenji/Fall_flip.png', 
+            imageSrc: './assets/huntress/Fall.png', 
             framesMax: 2, 
             image: new Image()
         }, 
         attack1 : {
-            imageSrc: './assets/kenji/Attack1.png', 
-            framesMax: 4, 
+            imageSrc: './assets/huntress/Attack1-flip.png', 
+            framesMax: 5, 
             image: new Image()
         },
         attack1_flipped : {
-            imageSrc: './assets/kenji/Attack1_flip.png', 
-            framesMax: 4, 
+            imageSrc: './assets/huntress/Attack1.png', 
+            framesMax: 5, 
             image: new Image()
         },
         attack2 : {
-            imageSrc: './assets/kenji/Attack2.png', 
-            framesMax: 4, 
+            imageSrc: './assets/huntress/Attack2-flip.png', 
+            framesMax: 5, 
             image: new Image()
         },
         attack2_flipped : {
-            imageSrc: './assets/kenji/Attack2-flip.png', 
-            framesMax: 4, 
+            imageSrc: './assets/huntress/Attack2.png', 
+            framesMax: 5, 
             image: new Image()
         },
         takeHit: {
-            imageSrc: './assets/kenji/Take Hit.png',
+            imageSrc: './assets/huntress/Hit-flip.png',
             framesMax: 3 
         },
         takeHit2: {
-            imageSrc: './assets/kenji/Take Hit_flip.png',
+            imageSrc: './assets/huntress/Hit.png',
             framesMax: 3 
         }, 
         death: {
-            imageSrc: './assets/kenji/Death.png',
-            framesMax: 7
+            imageSrc: './assets/huntress/Death.png',
+            framesMax: 8
         }
     },
     attackBox: {
@@ -276,7 +276,7 @@ const player2 = new Fighter({
         height: 100
     },
     hitbox: {
-        width: SPRITE_WIDTH,
+        width: SPRITE_WIDTH - 50,
         height: SPRITE_HEIGHT - 90
     }
 })
@@ -383,8 +383,16 @@ function animate() {
         player2.takeHit()
         player1.isAttacking = false
         console.log('go')
+        
+        // change health bar colour
+        if (player2.health <= 40 && player2.health > 20) {
+            document.getElementById("player2Health").style.backgroundColor = '#ffaa0d'
+        }
+        else if (player2.health <= 20) {
+            document.getElementById("player2Health").style.backgroundColor = 'red'
+        }
 
-        // subtract health from player 2's health
+        // reduce player 2's health bar
         gsap.to('#player2Health', {
             width: player2.health + '%'
         })
@@ -398,9 +406,17 @@ function animate() {
     if (rectangularCollision({rectangle1: player2, rectangle2: player1}) && player2.isAttacking && player2.framesCurrent === 1) {
         player1.takeHit()
         player2.isAttacking = false
-        console.log('enemy attack successful') 
+        console.log('enemy attack successful')
 
-        // subtract health from player 1's health
+        // change health bar colour
+        if (player1.health <= 40 && player1.health > 20) {
+            document.getElementById("player1Health").style.backgroundColor = '#ffaa0d'
+        }
+        else if (player1.health <= 20) {
+            document.getElementById("player1Health").style.backgroundColor = 'red'
+        }
+
+        // reduce player 1's health bar
         gsap.to('#player1Health', {
             width: player1.health + '%'
         })

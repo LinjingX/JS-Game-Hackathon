@@ -15,9 +15,9 @@ const SPRITE_HEIGHT = 150*2
 const GRAVITY_RATE = 0.2
 const GROUND_OFFSET = 100
 const DAMAGE = 2.5
-const DISPLAY_TIE = 'Tie'
-const DISPLAY_P1WIN = 'Samurai Mack Wins!'
-const DISPLAY_P2WIN = 'Kenji Wins!'
+const DISPLAY_TIE = 'DRAW'
+const DISPLAY_P1WIN = 'SAMURAI MACK Wins!'
+const DISPLAY_P2WIN = 'KENJI Wins!'
 const keys = {
     w : {pressed: false},
     a : {pressed: false},
@@ -376,7 +376,15 @@ function animate() {
         player1.isAttacking = false
         console.log('go')
 
-        // subtract health from player 2's health
+        // change health bar colour
+        if (player2.health <= 40 && player2.health > 20) {
+            document.getElementById("player2Health").style.backgroundColor = '#ffaa0d'
+        }
+        else if (player2.health <= 20) {
+            document.getElementById("player2Health").style.backgroundColor = 'red'
+        }
+
+        // reduce player 2's health bar
         gsap.to('#player2Health', {
             width: player2.health + '%'
         })
@@ -390,9 +398,17 @@ function animate() {
     if (rectangularCollision({rectangle1: player2, rectangle2: player1}) && player2.isAttacking && player2.framesCurrent === 1) {
         player1.takeHit()
         player2.isAttacking = false
-        console.log('enemy attack successful') 
+        console.log('enemy attack successful')
 
-        // subtract health from player 1's health
+        // change health bar colour
+        if (player1.health <= 40 && player1.health > 20) {
+            document.getElementById("player1Health").style.backgroundColor = '#ffaa0d'
+        }
+        else if (player1.health <= 20) {
+            document.getElementById("player1Health").style.backgroundColor = 'red'
+        }
+
+        // reduce player 1's health bar
         gsap.to('#player1Health', {
             width: player1.health + '%'
         })

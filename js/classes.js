@@ -132,15 +132,15 @@ class Fighter extends Sprite{
       }
 
     update(platformlist, groundoffset) {
-        c.fillStyle = 'rgba(0, 255, 0, 0.2)'
-        c.fillRect(this.position.x, this.position.y, this.width, this.height)
+        /*c.fillStyle = 'rgba(0, 255, 0, 0.2)'
+        c.fillRect(this.position.x, this.position.y, this.width, this.height)*/
 
         c.fillStyle = 'rgba(255, 0, 0, 0.2)'
         c.fillRect(this.hitbox.position.x, this.hitbox.position.y, this.hitbox.width, this.hitbox.height)
         this.draw()
         if (!this.dead) {this.animateFrames()}
         
-        this.hitbox.position.x = this.position.x
+        this.hitbox.position.x = this.position.x + 25
         this.hitbox.position.y = this.position.y
         
         if(this.lastKey === 'a' || this.lastKey === 'ArrowRight') {
@@ -195,6 +195,7 @@ class Fighter extends Sprite{
             }
         }
         
+        // cycle attack animations
         if (this.attackanim >= 1) {
             this.attackanim = 0
         } else {
@@ -206,6 +207,7 @@ class Fighter extends Sprite{
 
     takeHit() {
         this.health -= DAMAGE
+        
         if (this.health <= 0) {
             this.switchSprite('death')
         } else {
