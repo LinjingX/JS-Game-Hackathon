@@ -6,6 +6,7 @@
 </audio>  
 
 <head>
+	<link rel="stylesheet" href="menu.css">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
@@ -22,6 +23,7 @@
 		border: none;
   		color: white;
   		padding: 30px 60px;
+		margin: 15px;
   		text-align: center;
   		text-decoration: none;
   		display: inline-block;
@@ -32,12 +34,15 @@
 	<title>FighterGame</title>
 </head>
 
-<body>
-	<body style="background-image: url('./assets/menu-bg.png'); background-size: 2048px 1152px ; background-repeat: no-repeat;"></body>
-	<h1 style="font-size: 100px; color: white; -webkit-text-stroke: 4px black">FighterGame</h1>
-	<button class="button1" onclick="openHtml('lvl1.html')">Level 1</button>
-	<button class="button1" onclick="openHtml('lvl2.html')">Level 2</button>
-	<button class="button1" onclick="openHtml('lvl3.html')">Level 3</button>
+<body style="height: 1152px; width: 2048px; background-image: url('./assets/menu-bg.png'); background-size: 2048px 1152px ; background-repeat: no-repeat;">
+	<div class="button-container">
+		<h1 class="title">FighterGame</h1>
+		<button class="button1" onclick="openHtml('lvl1.html')">Level 1</button>
+		<button class="button1" onclick="openHtml('lvl2.html')">Level 2</button>
+		<button class="button1" onclick="openHtml('lvl3.html')">Level 3</button>
+	</div>
+</body>
+	
 
 	<script>
 		function openHtml(url) {
