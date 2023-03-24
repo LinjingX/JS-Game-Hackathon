@@ -36,9 +36,16 @@ const background = new Sprite({
     imageSrc: './assets/background.png'
 })
 
-// Create shop sprite
+// Create shop sprites
 const shop = new Sprite({
     position: {x: 1200, y: 256}, 
+    imageSrc: './assets/shop.png',
+    scale: 5.5,
+    framesMax: 6
+})
+
+const shop2 = new Sprite({
+    position: {x: 100, y: 256}, 
     imageSrc: './assets/shop.png',
     scale: 5.5,
     framesMax: 6
@@ -48,18 +55,18 @@ const shop = new Sprite({
 var platformlist = []
 
 const midairplatform1 = new MidairPlatform({
-    position: {x: 50, y: 600},
-    width: 300,
+    position: {x: 150, y: 500},
+    width: 550,
     height: 50, 
-    imageSrc: './assets/platform.png'
+    imageSrc: './assets/transparent.png'
 })
 platformlist.push(midairplatform1)
 
 const midairplatform2 = new MidairPlatform({
-    position: {x: 700, y: 500},
-    width: 300,
+    position: {x: 325, y: 700},
+    width: 200,
     height: 50, 
-    imageSrc: './assets/platform.png'
+    imageSrc: './assets/transparent.png'
 })
 platformlist.push(midairplatform2)
 
@@ -67,9 +74,17 @@ const midairplatform3 = new MidairPlatform({
     position: {x: 1250, y: 500},
     width: 550,
     height: 50, 
-    imageSrc: './assets/platform.png'
+    imageSrc: './assets/transparent.png'
 })
 platformlist.push(midairplatform3)
+
+const midairplatform4 = new MidairPlatform({
+    position: {x: 1425, y: 700},
+    width: 200,
+    height: 50, 
+    imageSrc: './assets/transparent.png'
+})
+platformlist.push(midairplatform4)
 
 // Create player 1
 const player1 = new Fighter({
@@ -293,7 +308,8 @@ function animate() {
     c.fillRect(0, 0, canvas.width, canvas.height)
     background.update()
     shop.update()
-    for(let i = 0; i < platformlist.length-1; i++){
+    shop2.update()
+    for(let i = 0; i < platformlist.length; i++){
         platformlist[i].update()
     }
     player1.update(platformlist, GROUND_OFFSET)
@@ -377,6 +393,7 @@ function animate() {
         console.log('go')
 
         // change health bar colour
+        document.getElementById("player2Health").style.transition = "background 1s";
         if (player2.health <= 40 && player2.health > 20) {
             document.getElementById("player2Health").style.backgroundColor = '#ffaa0d'
         }
@@ -401,6 +418,7 @@ function animate() {
         console.log('enemy attack successful')
 
         // change health bar colour
+        document.getElementById("player1Health").style.transition = "background 1s";
         if (player1.health <= 40 && player1.health > 20) {
             document.getElementById("player1Health").style.backgroundColor = '#ffaa0d'
         }

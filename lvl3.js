@@ -432,6 +432,7 @@ function animate() {
         }
 
         // change health bar colour
+        document.getElementById("player2Health").style.transition = "background 1s";
         if (player2.health <= 40 && player2.health > 20) {
             document.getElementById("player2Health").style.backgroundColor = '#ffaa0d'
         }
@@ -464,6 +465,7 @@ function animate() {
         }
 
         // change health bar colour
+        document.getElementById("player1Health").style.transition = "background 1s";
         if (player1.health <= 40 && player1.health > 20) {
             document.getElementById("player1Health").style.backgroundColor = '#ffaa0d'
         }
