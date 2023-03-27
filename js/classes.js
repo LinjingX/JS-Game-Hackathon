@@ -66,7 +66,9 @@ class Fighter extends Sprite{
         offset = { x: 0, y: 0 }, 
         sprites,
         attackBox = {offset: {}, width: undefined, height: undefined},
-        hitbox = {width: undefined, height: undefined}
+        hitbox = {width: undefined, height: undefined},
+        health = undefined,
+        damage = undefined
     }) {
         super({
             position,
@@ -98,13 +100,16 @@ class Fighter extends Sprite{
             height: attackBox.height,
         }
         this.isAttacking
-        this.health = 100
+        this.health = health
+        this.damage = damage
         this.framesCurrent = 0
         this.framesElapsed = 0
         this.framesHold = 5
         this.sprites = sprites
         this.dead = false
         this.attackanim = 0
+        this.canjump = true
+        this.candoublejump = true
 
         for (const sprite in this.sprites) {
             sprites[sprite].image = new Image()
@@ -140,11 +145,11 @@ class Fighter extends Sprite{
         this.draw()
         if (!this.dead) {this.animateFrames()}
         
-        this.hitbox.position.x = this.position.x + 25
+        this.hitbox.position.x = this.position.x
         this.hitbox.position.y = this.position.y
         
         if(this.lastKey === 'a' || this.lastKey === 'ArrowRight') {
-            this.attackBox.position.x = this.position.x + SPRITE_WIDTH - this.attackBox.offset.x - this.attackBox.width
+            this.attackBox.position.x = this.position.x + this.hitbox.width - this.attackBox.offset.x - this.attackBox.width
             this.attackBox.position.y = this.position.y + this.attackBox.offset.y
         } else {
             this.attackBox.position.x = this.position.x + this.attackBox.offset.x
@@ -166,6 +171,8 @@ class Fighter extends Sprite{
                 if (this.velocity.y > 0) {
                     this.velocity.y = 0
                     this.position.y = platformlist[i].position.y - this.hitbox.height
+                    this.canjump = true
+                    this.candoublejump = true
                 }
             } 
         }
@@ -175,6 +182,8 @@ class Fighter extends Sprite{
             // stop player from sinking into the ground upon initial impact from spawn fall
             this.velocity.y = 0
             this.position.y = 852 - groundoffset
+            this.canjump = true
+            this.candoublejump = true
         }
     }
 
@@ -205,8 +214,8 @@ class Fighter extends Sprite{
         this.isAttacking = true
     }
 
-    takeHit() {
-        this.health -= DAMAGE
+    takeHit(damage_received) {
+        this.health -= damage_received
         
         if (this.health <= 0) {
             this.switchSprite('death')

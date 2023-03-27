@@ -459,8 +459,13 @@ window.addEventListener('keydown', (event) => {
                 player1.lastKey = 'a'
                 break
             case 'w':
-                if(player1.position.y > (player1.height/2)){
+                if(player1.position.y > (player1.height/2) && player1.canjump){
                     player1.velocity.y = -10
+                    player1.canjump = false
+                    player1.candoublejump = true
+                } else if (player1.position.y > (player1.height/2) && player1.candoublejump){
+                    player1.velocity.y = -10
+                    player1.candoublejump = false
                 }
                 break
             case ' ':
@@ -479,9 +484,13 @@ window.addEventListener('keydown', (event) => {
                 player2.lastKey = 'ArrowLeft'
                 break
             case 'ArrowUp':
-                if(player2.position.y > (player2.height/2)){
-                    console.log('ok')
+                if(player2.position.y > (player2.height/2) && player2.canjump){
                     player2.velocity.y = -10
+                    player2.canjump = false
+                    player2.candoublejump = true
+                } else if (player2.position.y > (player2.height/2) && player2.candoublejump){
+                    player2.velocity.y = -10
+                    player2.candoublejump = false
                 }
                 break
             case 'ArrowDown':

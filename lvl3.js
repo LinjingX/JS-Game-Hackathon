@@ -14,8 +14,9 @@ const SPRITE_HEIGHT = 150*2
 /* OTHER CONSTANTS */
 const GRAVITY_RATE = 0.2
 const GROUND_OFFSET = -400
-const DAMAGE = 1
+const DAMAGE = 10
 const FALL_DAMAGE = 100
+const PLAYER1_MAX_HEALTH = 200
 const DISPLAY_TIE = 'DRAW'
 const DISPLAY_P1WIN = 'BASEBALL MAN Wins!'
 const DISPLAY_P2WIN = 'WUKONG Wins!'
@@ -127,8 +128,8 @@ const player1 = new Fighter({
     scale: 4,
     framesMax: 10,
     offset: {
-        x: 345,
-        y: 305
+        x: 300,
+        y: 270
     }, 
     sprites: {
         idle: {
@@ -181,12 +182,12 @@ const player1 = new Fighter({
         },
         attack2 : {
             imageSrc: './assets/baseballBat/Attack2.png', 
-            framesMax: 7, 
+            framesMax: 6, 
             image: new Image()
         },
         attack2_flipped : {
             imageSrc: './assets/baseballBat/Attack2-flip.png', 
-            framesMax: 7, 
+            framesMax: 6, 
             image: new Image()
         },
         takeHit: {
@@ -211,9 +212,11 @@ const player1 = new Fighter({
         height: 100
     },
     hitbox: {
-        width: SPRITE_WIDTH - 25,
-        height: SPRITE_HEIGHT - 90
+        width: SPRITE_WIDTH + 100,
+        height: SPRITE_HEIGHT - 50
     }, 
+    health: 100, 
+    damage: 10,
     facing: RIGHT
 })
 
@@ -230,7 +233,7 @@ const player2 = new Fighter({
     framesMax: 4,
     offset: {
         x: 350,
-        y: 300
+        y: 315
     }, 
     sprites: {
         idle: {
@@ -313,9 +316,11 @@ const player2 = new Fighter({
         height: 100
     },
     hitbox: {
-        width: SPRITE_WIDTH - 35,
-        height: SPRITE_HEIGHT - 90
-    }, 
+        width: SPRITE_WIDTH - 25,
+        height: SPRITE_HEIGHT - 50
+    },
+    health: 100,
+    damage: 5,
     facing: LEFT
 })
 
@@ -422,7 +427,7 @@ function animate() {
 
     // detect player1 collisions & player2 gets hit
     if (rectangularCollision({rectangle1: player1, rectangle2: player2}) && player1.isAttacking && player1.framesCurrent === 4) {
-        player2.takeHit()
+        player2.takeHit(player1.damage)
 
         // knockback to player 2 on hit
         if (player1.facing === RIGHT) {
@@ -455,7 +460,7 @@ function animate() {
     
     // detect player2 collisions & player1 gets hit
     if (rectangularCollision({rectangle1: player2, rectangle2: player1}) && player2.isAttacking && player2.framesCurrent === 1) {
-        player1.takeHit()
+        player1.takeHit(player2.damage)
 
         // knockback to player 1 on hit
         if (player2.facing === RIGHT) {
@@ -515,8 +520,13 @@ window.addEventListener('keydown', (event) => {
                 player1.lastKey = 'a'
                 break
             case 'w':
-                if(player1.position.y > (player1.height/2)){
+                if(player1.position.y > (player1.height/2) && player1.canjump){
                     player1.velocity.y = -10
+                    player1.canjump = false
+                    player1.candoublejump = true
+                } else if (player1.position.y > (player1.height/2) && player1.candoublejump){
+                    player1.velocity.y = -10
+                    player1.candoublejump = false
                 }
                 break
             case ' ':
@@ -535,9 +545,13 @@ window.addEventListener('keydown', (event) => {
                 player2.lastKey = 'ArrowLeft'
                 break
             case 'ArrowUp':
-                if(player2.position.y > (player2.height/2)){
-                    console.log('ok')
+                if(player2.position.y > (player2.height/2) && player2.canjump){
                     player2.velocity.y = -10
+                    player2.canjump = false
+                    player2.candoublejump = true
+                } else if (player2.position.y > (player2.height/2) && player2.candoublejump){
+                    player2.velocity.y = -10
+                    player2.candoublejump = false
                 }
                 break
             case 'ArrowDown':

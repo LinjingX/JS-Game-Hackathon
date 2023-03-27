@@ -92,7 +92,7 @@ const player1 = new Fighter({
     framesMax: 10,
     offset: {
         x: 345,
-        y: 305
+        y: 280
     }, 
     sprites: {
         idle: {
@@ -145,12 +145,12 @@ const player1 = new Fighter({
         },
         attack2 : {
             imageSrc: './assets/fantasyWarrior/Attack2.png', 
-            framesMax: 7, 
+            framesMax: 8, 
             image: new Image()
         },
         attack2_flipped : {
             imageSrc: './assets/fantasyWarrior/Attack2-flip.png', 
-            framesMax: 7, 
+            framesMax: 8, 
             image: new Image()
         },
         takeHit: {
@@ -175,9 +175,11 @@ const player1 = new Fighter({
         height: 100
     },
     hitbox: {
-        width: SPRITE_WIDTH - 50,
+        width: SPRITE_WIDTH,
         height: SPRITE_HEIGHT - 90
-    }
+    },
+    health: 100, 
+    damage: 5
 })
 
 // Create player 2
@@ -269,16 +271,18 @@ const player2 = new Fighter({
     },
     attackBox: {
         offset: {
-            x: -280,
+            x: -230,
             y: 30
         },
-        width: 300,
+        width: 250,
         height: 100
     },
     hitbox: {
-        width: SPRITE_WIDTH - 50,
+        width: SPRITE_WIDTH,
         height: SPRITE_HEIGHT - 90
-    }
+    },
+    health: 100, 
+    damage: 6
 })
 
 // Render players
@@ -380,7 +384,7 @@ function animate() {
 
     // detect player1 collisions & player2 gets hit
     if (rectangularCollision({rectangle1: player1, rectangle2: player2}) && player1.isAttacking && player1.framesCurrent === 4) {
-        player2.takeHit()
+        player2.takeHit(player1.damage)
         player1.isAttacking = false
         console.log('go')
         
@@ -405,9 +409,8 @@ function animate() {
     
     // detect player2 collisions & player1 gets hit
     if (rectangularCollision({rectangle1: player2, rectangle2: player1}) && player2.isAttacking && player2.framesCurrent === 1) {
-        player1.takeHit()
+        player1.takeHit(player2.damage)
         player2.isAttacking = false
-        console.log('enemy attack successful')
 
         // change health bar colour
         document.getElementById("player1Health").style.transition = "background 1s";
@@ -448,8 +451,13 @@ window.addEventListener('keydown', (event) => {
                 player1.lastKey = 'a'
                 break
             case 'w':
-                if(player1.position.y > (player1.height/2)){
+                if(player1.position.y > (player1.height/2) && player1.canjump){
                     player1.velocity.y = -10
+                    player1.canjump = false
+                    player1.candoublejump = true
+                } else if (player1.position.y > (player1.height/2) && player1.candoublejump){
+                    player1.velocity.y = -10
+                    player1.candoublejump = false
                 }
                 break
             case ' ':
@@ -468,9 +476,13 @@ window.addEventListener('keydown', (event) => {
                 player2.lastKey = 'ArrowLeft'
                 break
             case 'ArrowUp':
-                if(player2.position.y > (player2.height/2)){
-                    console.log('ok')
+                if(player2.position.y > (player2.height/2) && player2.canjump){
                     player2.velocity.y = -10
+                    player2.canjump = false
+                    player2.candoublejump = true
+                } else if (player2.position.y > (player2.height/2) && player2.candoublejump){
+                    player2.velocity.y = -10
+                    player2.candoublejump = false
                 }
                 break
             case 'ArrowDown':
