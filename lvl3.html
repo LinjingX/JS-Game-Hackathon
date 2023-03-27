@@ -5,6 +5,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+    <script>var ml = { timelines: {}};</script>
+
     <style>
         * {
             box-sizing: border-box;
@@ -36,10 +40,47 @@
             
         </div>
 
-        <div id = 'displayText' style="position: absolute; color: white; display: flex; align-items: center; justify-content: center; top: 0; right: 0; bottom: 0; left: 0; font-size: 40px; -webkit-text-stroke: 2.5px black"></div>
+        <div id = 'displayText' class="ml15" style="position: absolute; color: white; display: flex; align-items: center; justify-content: center; top: 0; right: 0; bottom: 0; left: 0; font-size: 40px; -webkit-text-stroke: 2px black">
+            <span id="gotxt" class="word"></span>
+        </div>        
+        
         <canvas></canvas>
 
     </div>
+
+    <script>
+        ml.timelines["ml15"] = anime.timeline({loop: true})
+          .add({
+            targets: '.ml15 .word',
+            scale: [14,1],
+            opacity: [0,1],
+            easing: "easeOutCirc",
+            duration: 800,
+            delay: function(el, i) {
+              return 800 * i;
+            }
+          }).add({
+            targets: '.ml15',
+            opacity: 0,
+            duration: 1000,
+            easing: "easeOutExpo",
+            delay: 1000
+          });
+        </script>
+        
+    <style>
+        .ml15 {
+          font-weight: 800;
+          font-size: 3.8em;
+          text-transform: uppercase;
+          letter-spacing: 0.5em;
+        }
+        
+        .ml15 .word {
+          display: inline-block;
+          line-height: 1em;
+        }
+    </style>
     
     <!-- script sources -->
     <script 

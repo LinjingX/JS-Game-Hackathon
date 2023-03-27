@@ -23,11 +23,11 @@ function platformCollision({object1, object2}){
 function determineWinner ({player1, player2, timeID}) {
     clearTimeout(timeID)
     if (player1.health === player2.health) {
-        document.querySelector('#displayText').innerHTML = DISPLAY_TIE
+        document.getElementById("gotxt").textContent = DISPLAY_TIE
     } else if (player1.health > player2.health) {
-        document.querySelector('#displayText').innerHTML = DISPLAY_P1WIN
+        document.getElementById("gotxt").textContent = DISPLAY_P1WIN
     } else {
-        document.querySelector('#displayText').innerHTML = DISPLAY_P2WIN
+        document.getElementById("gotxt").textContent = DISPLAY_P2WIN
     }
     document.querySelector('#displayText').style.display = 'flex'
 }
