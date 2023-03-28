@@ -184,7 +184,9 @@ const player1 = new Fighter({
     hitbox: {
         width: SPRITE_WIDTH,
         height: SPRITE_HEIGHT - 90
-    }
+    },
+    health: 100,
+    damage: 10
 })
 
 // Create player 2
@@ -285,7 +287,9 @@ const player2 = new Fighter({
     hitbox: {
         width: SPRITE_WIDTH,
         height: SPRITE_HEIGHT - 90
-    }
+    },
+    health: 100,
+    damage: 10
 })
 
 // Render players
@@ -388,7 +392,7 @@ function animate() {
 
     // detect player1 collisions & player2 gets hit
     if (rectangularCollision({rectangle1: player1, rectangle2: player2}) && player1.isAttacking && player1.framesCurrent === 4) {
-        player2.takeHit()
+        player2.takeHit(player1.damage)
         player1.isAttacking = false
         console.log('go')
 
@@ -413,7 +417,7 @@ function animate() {
     
     // detect player2 collisions & player1 gets hit
     if (rectangularCollision({rectangle1: player2, rectangle2: player1}) && player2.isAttacking && player2.framesCurrent === 1) {
-        player1.takeHit()
+        player1.takeHit(player2.damage)
         player2.isAttacking = false
         console.log('enemy attack successful')
 
