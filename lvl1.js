@@ -152,12 +152,12 @@ const player1 = new Fighter({
         },
         attack2 : {
             imageSrc: './assets/samuraiMack/Attack2.png', 
-            framesMax: 4, 
+            framesMax: 6, 
             image: new Image()
         },
         attack2_flipped : {
             imageSrc: './assets/samuraiMack/Attack2-flip.png', 
-            framesMax: 4, 
+            framesMax: 6, 
             image: new Image()
         },
         takeHit: {
