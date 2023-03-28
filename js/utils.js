@@ -33,7 +33,7 @@ function determineWinner ({player1, player2, timeID}) {
 }
 
 // Regulate game timer
-let timer = 61
+let timer = 1
 let timeID
 function decreaseTimer() {
     timeID = setTimeout(decreaseTimer, 1000)
