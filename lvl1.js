@@ -186,7 +186,7 @@ const player1 = new Fighter({
         height: SPRITE_HEIGHT - 90
     },
     health: 100,
-    damage: 10
+    damage: 12
 })
 
 // Create player 2

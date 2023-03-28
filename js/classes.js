@@ -140,8 +140,9 @@ class Fighter extends Sprite{
         /*c.fillStyle = 'rgba(0, 255, 0, 0.2)'
         c.fillRect(this.position.x, this.position.y, this.width, this.height)*/
 
-        c.fillStyle = 'rgba(255, 0, 0, 0.2)'
-        c.fillRect(this.hitbox.position.x, this.hitbox.position.y, this.hitbox.width, this.hitbox.height)
+        // draw hitbox
+        // c.fillStyle = 'rgba(255, 0, 0, 0.2)'
+        // c.fillRect(this.hitbox.position.x, this.hitbox.position.y, this.hitbox.width, this.hitbox.height)
         this.draw()
         if (!this.dead) {this.animateFrames()}
         
@@ -157,7 +158,7 @@ class Fighter extends Sprite{
         }
 
         // draw attack box
-        c.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height)
+        // c.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height)
 
         this.position.x += this.velocity.x
 
@@ -394,8 +395,8 @@ class MidairPlatform {
     }
   
     draw() {
-      c.fillStyle = 'rgba(255, 0, 0, 0.5)'
-      c.fillRect(this.position.x, this.position.y, this.width, this.height)
+    //   c.fillStyle = 'rgba(255, 0, 0, 0.5)'
+    //   c.fillRect(this.position.x, this.position.y, this.width, this.height)
       c.drawImage(
         this.image,
         this.position.x,

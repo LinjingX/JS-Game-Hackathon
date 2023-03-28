@@ -81,7 +81,7 @@ platformlist.push(midairplatform4)
 
 // Create player 1
 const player1 = new Fighter({
-    position: {x: 375, y: getRandomInt(-100, 100)}, 
+    position: {x: 275, y: getRandomInt(-100, 100)}, 
     velocity: {x: 0, y: 0},
     offset: {
         x: 0,
