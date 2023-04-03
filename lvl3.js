@@ -53,9 +53,9 @@ const background = new Sprite({
 var platformlist = []
 
 const midairplatform1 = new MidairPlatform({
-    position: {x: 0, y: 625},
-    width: 390,
-    height: 50, 
+    position: {x: 0, y: 640},
+    width: 370,
+    height: 25, 
     imageSrc: './assets/transparent.png'
 })
 platformlist.push(midairplatform1)
@@ -93,25 +93,25 @@ const midairplatform5 = new MidairPlatform({
 platformlist.push(midairplatform5)
 
 const midairplatform6 = new MidairPlatform({
-    position: {x: 750, y: 525},
-    width: 380,
-    height: 50, 
+    position: {x: 770, y: 535},
+    width: 340,
+    height: 25, 
     imageSrc: './assets/transparent.png'
 })
 platformlist.push(midairplatform6)
 
 const midairplatform7 = new MidairPlatform({
-    position: {x: 1090, y: 920},
-    width: 195,
-    height: 50, 
+    position: {x: 1110, y: 930},
+    width: 155,
+    height: 25, 
     imageSrc: './assets/transparent.png'
 })
 platformlist.push(midairplatform7)
 
 const midairplatform8 = new MidairPlatform({
-    position: {x: 1500, y: 945},
-    width: 550,
-    height: 50, 
+    position: {x: 1525, y: 945},
+    width: 525,
+    height: 25, 
     imageSrc: './assets/transparent.png'
 })
 platformlist.push(midairplatform8)
@@ -216,7 +216,7 @@ const player1 = new Fighter({
         height: SPRITE_HEIGHT - 50
     }, 
     health: 100, 
-    damage: 10,
+    damage: 7,
     facing: RIGHT
 })
 
@@ -320,7 +320,7 @@ const player2 = new Fighter({
         height: SPRITE_HEIGHT - 50
     },
     health: 100,
-    damage: 5,
+    damage: 4.3,
     facing: LEFT
 })
 

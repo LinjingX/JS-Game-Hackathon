@@ -48,36 +48,60 @@ const background = new Sprite({
 var platformlist = []
 
 const midairplatform1 = new MidairPlatform({
-    position: {x: 225, y: 770},
-    width: 140,
-    height: 50, 
+    position: {x: 245, y: 780},
+    width: 110,
+    height: 20, 
     imageSrc: './assets/transparent.png'
 })
 platformlist.push(midairplatform1)
 
 const midairplatform2 = new MidairPlatform({
-    position: {x: 470, y: 600},
-    width: 450,
-    height: 50, 
+    position: {x: 480, y: 600},
+    width: 425,
+    height: 25, 
     imageSrc: './assets/transparent.png'
 })
 platformlist.push(midairplatform2)
 
 const midairplatform3 = new MidairPlatform({
-    position: {x: 1000, y: 330},
-    width: 480,
-    height: 50, 
+    position: {x: 1025, y: 330},
+    width: 425,
+    height: 25, 
     imageSrc: './assets/transparent.png'
 })
 platformlist.push(midairplatform3)
 
 const midairplatform4 = new MidairPlatform({
-    position: {x: 1525, y: 740},
-    width: 250,
+    position: {x: 1530, y: 750},
+    width: 210,
     height: 50, 
     imageSrc: './assets/transparent.png'
 })
 platformlist.push(midairplatform4)
+
+const midairplatform5 = new MidairPlatform({
+    position: {x: 190, y: 910},
+    width: 50,
+    height: 20,
+    imageSrc: './assets/transparent.png'
+})
+platformlist.push(midairplatform5)
+
+const midairplatform6 = new MidairPlatform({
+    position: {x: 360, y: 910},
+    width: 50,
+    height: 20,
+    imageSrc: './assets/transparent.png'
+})
+platformlist.push(midairplatform6)
+
+const midairplatform7 = new MidairPlatform({
+    position: {x: 1075, y: 520},
+    width: 400,
+    height: 25, 
+    imageSrc: './assets/transparent.png'
+})
+platformlist.push(midairplatform7)
 
 // Create player 1
 const player1 = new Fighter({
@@ -179,7 +203,7 @@ const player1 = new Fighter({
         height: SPRITE_HEIGHT - 90
     },
     health: 100, 
-    damage: 5
+    damage: 6.6
 })
 
 // Create player 2
@@ -282,7 +306,7 @@ const player2 = new Fighter({
         height: SPRITE_HEIGHT - 90
     },
     health: 100, 
-    damage: 6
+    damage: 3.5
 })
 
 // Render players

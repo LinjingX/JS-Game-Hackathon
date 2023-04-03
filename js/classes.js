@@ -141,9 +141,11 @@ class Fighter extends Sprite{
         c.fillRect(this.position.x, this.position.y, this.width, this.height)*/
 
         // draw hitbox
-        // c.fillStyle = 'rgba(255, 0, 0, 0.2)'
-        // c.fillRect(this.hitbox.position.x, this.hitbox.position.y, this.hitbox.width, this.hitbox.height)
+        //c.fillStyle = 'rgba(255, 0, 0, 0.2)'
+        //c.fillRect(this.hitbox.position.x, this.hitbox.position.y, this.hitbox.width, this.hitbox.height)
+
         this.draw()
+        
         if (!this.dead) {this.animateFrames()}
         
         this.hitbox.position.x = this.position.x
@@ -395,8 +397,8 @@ class MidairPlatform {
     }
   
     draw() {
-    //   c.fillStyle = 'rgba(255, 0, 0, 0.5)'
-    //   c.fillRect(this.position.x, this.position.y, this.width, this.height)
+    //c.fillStyle = 'rgba(255, 0, 0, 0.5)'
+    //c.fillRect(this.position.x, this.position.y, this.width, this.height)
       c.drawImage(
         this.image,
         this.position.x,
