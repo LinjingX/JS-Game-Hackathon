@@ -10,6 +10,7 @@ function rectangularCollision({rectangle1, rectangle2}) {
     )
 }
 
+// Return if a collision between a player and a mid air platform has occured
 function platformCollision({object1, object2}){
     return (
         object1.position.y + object1.height >= object2.position.y &&

@@ -41,14 +41,6 @@ const background = new Sprite({
     imageSrc: './assets/magicCliffs.png'
 })
 
-// Create shop sprite
-/* const shop = new Sprite({
-    position: {x: 1200, y: 256}, 
-    imageSrc: './assets/shop.png',
-    scale: 5.5,
-    framesMax: 6
-}) */
-
 // Create mid air platform
 var platformlist = []
 
