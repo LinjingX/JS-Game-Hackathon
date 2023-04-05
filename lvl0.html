@@ -1,0 +1,49 @@
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap">
+    <link rel="stylesheet" href="level.css">
+</head>
+
+<body>
+    <!-- red container div -->
+    <div class = "red-container">
+
+        <!-- smaller red container div -->
+        <div class = "smaller-red-container">
+            
+            <!-- player1 health -->
+            <div class = "player1-health">
+                <div class = "player1-lost-health"></div>
+                <div id="player1Health" class="player1-remaining-health"></div>
+            </div>
+
+            <!-- timer -->
+            <div id="timer" class="timer"></div>
+            
+            <!-- player2 health -->
+            <div class="player2-health">
+                <div class="player2-lost-health"></div>
+                <div id="player2Health" class="player2-remaining-health"></div>
+            </div>
+            
+        </div>
+
+        <div id = 'displayText' class="zoom-out">
+            <span id="gotxt"></span>
+        </div>
+
+        <canvas></canvas>
+
+    </div>
+    
+    <!-- script sources -->
+    <script 
+    src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js" 
+    integrity="sha512-f8mwTB+Bs8a5c46DEm7HQLcJuHMBaH/UFlcgyetMqqkvTcYg4g5VXsYR71b3qC82lZytjNYvBj2pf0VekA9/FQ==" 
+    crossorigin="anonymous" 
+    referrerpolicy="no-referrer"></script>
+    <script src = "js/utils.js"></script>
+    <script src = "js/classes-new.js"></script>
+    <script src = "lvl0.js"></script>
+</body>
